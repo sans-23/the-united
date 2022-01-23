@@ -1,0 +1,250 @@
+{% extends 'explo/base.html' %}
+
+{% block content %}
+    <div style="height:50px"></div>
+{% if not fos %}
+    <div class="w3-row w3-padding">
+      <button id="b1" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:white; background-color: black;" onclick="toggleSlopes('type1')">Infinite</button>
+      <button id="b2" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:black; background-color: white;" onclick="toggleSlopes('type2')">Finite</button>
+      <button id="b3" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:black; background-color: white;" onclick="toggleSlopes('type3')">Taylors Number</button>
+    </div>
+
+    <div id="type1" class="w3-container w3-mobile">
+        <form action="{% url 'explo:stabilityofslope' %}" method="post">
+
+        {% csrf_token %}
+
+          <select class="w3-select w3-red" name="type_of_soil">
+          <option value="Cohesionless">Cohesionless</option>
+          <option value="Cohesive">Cohesive</option>
+          </select>
+
+        <table class="w3-table w3-centered w3-card-4 w3-round-xlarge">
+
+        <tr>
+          <td><label class="w3-badge"> Slope angle </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="beta" name="beta" min="0" step="0.001" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Angle of shearing resistance </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="fi" name="fi" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Unit weight of soil </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="gamma" name="gamma" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Depth from top of slope </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="z" name="z" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Seepage Height </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="h" name="h" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Effective Unit cohesion </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="c" name="c" min="0" step="0.01"></td>
+        </tr>
+
+        <input type="hidden" name="slope_type" value="Infinite">
+
+        <tr>
+          <td><label class="w3-badge">  </label></td>
+          <td><input class="w3-button w3-round-large w3-block w3-section w3-red w3-ripple w3-padding" type="submit" value="SOLVE"></td>
+        </tr>
+        </table>
+
+        </form>
+
+    </div>
+
+    <div id="type2" class="w3-container w3-mobile" style="display:none">
+        <form action="{% url 'explo:stabilityofslope' %}" method="post">
+
+        {% csrf_token %}
+
+        <table class="w3-table w3-centered w3-card-4 w3-round-xlarge">
+
+        <tr>
+          <td><label class="w3-badge"> Undrained strength of soil</label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="Cu" name="Cu" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Radius of Arc</label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="R" name="R" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Weight of wedge </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="W" name="W" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Distance of centre of gravity from verticle </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="x" name="x" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Angle by slope on slip circle </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="theta" name="theta" min="0" step="0.01" required></td>
+        </tr>
+
+        <input type="hidden" name="slope_type" value="Finite">
+
+        <tr>
+          <td><label class="w3-badge">  </label></td>
+          <td><input class="w3-button w3-round-large w3-block w3-section w3-red w3-ripple w3-padding" type="submit" value="SOLVE"></td>
+        </tr>
+        </table>
+
+        </form>
+
+    </div>
+
+    <div id="type3" class="w3-container w3-mobile" style="display:none">
+        <form action="{% url 'explo:stabilityofslope' %}" method="post">
+
+        {% csrf_token %}
+
+        <table class="w3-table w3-centered w3-card-4 w3-round-xlarge">
+
+        <tr>
+          <td><label class="w3-badge"> Unit Cohesion </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="C" name="C" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Maximum Height of slope that can be built without failure</label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="Hc" name="Hc" min="0" step="0.01" required></td>
+        </tr>
+
+        <tr>
+          <td><label class="w3-badge"> Unit Weight of soil </label></td>
+          <td><input class="w3-input" style="width:50%;" type="number" id="uw" name="uw" min="0" step="0.01" required></td>
+        </tr>
+
+        <input type="hidden" name="slope_type" value="Taylor">
+
+        <tr>
+          <td><label class="w3-badge">  </label></td>
+          <td><input class="w3-button w3-round-large w3-block w3-section w3-red w3-ripple w3-padding" type="submit" value="FIND"></td>
+        </tr>
+        </table>
+
+        </form>
+
+    </div>
+{% endif %}
+
+{% if fos and tty == 3 %}
+<diV class="w3-container w3-card w3-black w3-padding w3-margin w3-round-xxlarge w3-center">
+    <a href="{% url 'rakshit:stabilityofslope' %}" class="w3-left w3-margin"><span class="material-icons w3-xxlarge">arrow_back</span></a>
+    <a href="https://colab.research.google.com/drive/19zMZyieAhHp9R6QoIo-4eaX2xyhlSdZT?usp=sharing" class="w3-right w3-margin"><span class="material-icons w3-xxlarge">code</span></a>
+    <h2 class="w3-center w3-margin" style="text-shadow:1px 1px 0 #444"><b>Taylor's Stability Number is {{fos}}</b></h2>
+</div>
+{% endif %}
+
+{% if fos and tty == 0 %}
+
+<diV class="w3-container w3-card w3-black w3-padding w3-margin w3-round-xxlarge">
+{% if isStable %}
+<h1>Slope is Stable</h1>
+{% endif %}
+{% if not isStable %}
+<h1 class='w3-center'>Slope Failure Will Occur</h1>
+{% endif %}
+<div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+</div>
+
+{% if ax != -1 %}
+<script>
+
+    var trace1 = {
+        x: {{ax}},
+        y: {{ay}},
+        mode: 'lines+markers',
+        marker: {
+            color: 'rgb(219, 64, 82)',
+            size: 8
+        },
+        line: {
+            color: 'rgb(219, 64, 82)',
+            width: 2
+             },
+        };
+
+    var trace2 = {
+        x: {{bx}},
+        y: {{by}},
+        mode: 'lines+markers',
+        name: 'Slope Envelope',
+        marker: {
+            color: 'rgb(19, 24, 82)',
+            size: 8
+        },
+        line: {
+            color: 'rgb(19, 24, 82)',
+            width: 2
+             },
+        };
+
+        var data = [trace1, trace2];
+
+            var layout = {
+              plot_bgcolor :'white',
+              paper_bgcolor: 'black',
+              title:"{{soil_type}}",
+              titlefont: {
+                  family: 'Arial, sans-serif',
+                  size: 24,
+                  color: 'white',
+                },
+              xaxis: {
+                title: 'Normal Stress',
+                titlefont: {
+                  family: 'Arial, sans-serif',
+                  size: 18,
+                  color: 'white',
+                },
+                ticks: 'outside',
+                tick0: 0,
+                tickfont: {
+                  family: 'Old Standard TT, serif',
+                  size: 14,
+                  color: 'white',
+                },
+              },
+              yaxis: {
+                title: 'Shear Stress',
+                titlefont: {
+                  family: 'Arial, sans-serif',
+                  size: 18,
+                  color: 'white',
+                },
+                autotick: false,
+                ticks: 'outside',
+                tick0: 0,
+                dtick: 10,
+                tickfont: {
+                  family: 'Old Standard TT, serif',
+                  size: 14,
+                  color: 'white',
+                },
+              },
+            };
+
+            Plotly.newPlot('myDiv', data, layout);
+
+</script>
+{% endif %}
+
+{% endif %}
+
+
+{% endblock %}

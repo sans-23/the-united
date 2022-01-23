@@ -1,0 +1,125 @@
+{% extends 'explo/base.html' %}
+
+{% block content %}
+    <div style="height:50px"></div>
+
+    <div class="w3-container w3-moblie w3-centered w3-padding">
+        <span class="w3-tag w3-xxxlarge w3-red w3-round-xxlarge w3-card">U</span>
+        <span class="w3-tag w3-spin w3-xxxlarge w3-round-xxlarge w3-card">S</span>
+        <span class="w3-tag w3-xxxlarge w3-yellow w3-round-xxlarge w3-card">C</span>
+        <span class="w3-tag w3-spin w3-xxxlarge w3-round-xxlarge w3-card">S</span>
+    </div>
+
+    {% if data %}
+        <div class="w3-container w3-mobile" style="padding:8px;">
+            <div class="w3-container w3-mobile w3-card w3-black" style="border-top-left-radius: 16px; border-top-right-radius: 16px;">
+                <a href="{% url 'explo:sans' %}" class="w3-left w3-margin"><span class="material-icons w3-xxlarge">arrow_back</span></a>
+                <a href="https://colab.research.google.com/drive/1LBJSN49G34-LQXpQFIh6GJM5VnuPqSpd?usp=sharing" class="w3-right w3-margin"><span class="material-icons w3-xxlarge">code</span></a>
+                <h2 class="w3-center w3-margin" style="text-shadow:1px 1px 0 #444"><b>{{data.USCS_NAME}}</b></h2>
+                <h3 class="w3-center">{{data.USCS_ABBR}}</h3>
+
+            </div>
+
+            <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+
+            <div class="w3-container w3-mobile w3-card w3-black" style="border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;">
+                {% if data.Cu %}
+                <details class="w3-container w3-xlarge">
+                    <summary>Show Table</summary>
+                    <table class="w3-table w3-light-grey w3-centered w3-card-4 w3-round-xlarge" >
+                    <tr class="w3-dark-grey w3-round-xlarge">
+                      <th><h5>Sieve Size</h5></th>
+                      <th><h5>Percentage Finer</h5></th>
+                    </tr>
+
+                    {% for a, b in zipper %}
+                    <tr>
+                      <td> {{a}} </td>
+                      <td>{{b}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                </details>
+                <p class="w3-container w3-xlarge">Cu: {{data.Cu|floatformat:3}}</p>
+                <p class="w3-container w3-xlarge">Cc: {{data.Cc|floatformat:3}}</p>
+                {% if add.gravel %}
+                <p class="w3-container w3-xlarge">Gravel: {{add.gravel}}</p>
+                <p class="w3-container w3-xlarge">Coarse-sand: {{add.coarsesand}}</p>
+                <p class="w3-container w3-xlarge">Medium-sand: {{add.mediumsand}}</p>
+                <p class="w3-container w3-xlarge">Fine-sand: {{add.finesand}}</p>
+                <p class="w3-container w3-xlarge">Silt: {{add.silt}}</p>
+                {% endif %}
+                {% endif %}
+            </div>
+
+            <script>
+
+             var trace = {
+              x: {{sieve}},
+              y: {{A}},
+              mode: 'lines+markers',
+              name: 'Scatter + Lines',
+              marker: {
+                color: 'rgb(219, 64, 82)',
+                size: 8
+              },
+              line: {
+                color: 'rgb(219, 64, 82)',
+                width: 2
+              },
+            };
+
+            var data = [trace];
+
+            var layout = {
+              plot_bgcolor :'white',
+              paper_bgcolor: 'black',
+              title:'Particle size distribution curve',
+              titlefont: {
+                  family: 'Arial, sans-serif',
+                  size: 24,
+                  color: 'white',
+                },
+              xaxis: {
+                title: 'Sieve Size (log scale)',
+                titlefont: {
+                  family: 'Arial, sans-serif',
+                  size: 18,
+                  color: 'white',
+                },
+                ticks: 'outside',
+                tick0: 0,
+                tickfont: {
+                  family: 'Old Standard TT, serif',
+                  size: 14,
+                  color: 'white',
+                },
+              },
+              yaxis: {
+                title: 'percentage finer',
+                titlefont: {
+                  family: 'Arial, sans-serif',
+                  size: 18,
+                  color: 'white',
+                },
+                autotick: false,
+                ticks: 'outside',
+                tick0: 0,
+                dtick: 10,
+                tickfont: {
+                  family: 'Old Standard TT, serif',
+                  size: 14,
+                  color: 'white',
+                },
+              },
+            };
+
+            Plotly.newPlot('myDiv', data, layout);
+
+            </script>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}
