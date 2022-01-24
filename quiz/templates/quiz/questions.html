@@ -1,0 +1,164 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+{% if quiz.author == request.user %}
+
+      <div class="w3-container w3-padding-48 w3-half">
+        <img class="w3-padding" style="width: 100%;" src="https://st2.depositphotos.com/6419692/10851/v/950/depositphotos_108511814-stock-illustration-exam-student-stress-schoolgirl-sleeps.jpg">
+        <form action="{% url 'quiz:question_list' slug=slug%}" method="post">
+          <p>Total Questions : {{quiz.question_set.count}}</p>
+
+          {% if quiz.question_set.count > 4 and request.user.profile.is_pro == False %}
+          <p style="color:red"><i class="material-icons">policy</i> <span>MAX QUES LIMIT</span></p>
+          {% else %}
+          <button class="w3-button w3-indigo w3-round w3-bar"><a href="{% url 'quiz:question_create' slug=quiz.slug %}">Add Question</a></button>
+          {% endif %}
+          
+          
+          {% for question in questions %}
+  
+          <div class="w3-container w3-round-large w3-border w3-text-indigo w3-margin-top">
+            <p class="w3-container w3-text-black">{{question.question}}</p>
+            <hr>
+              <div class="w3-container w3-padding">
+                <label>
+                      <input type="radio" name="{{question.id}}" value="{{question.option1}}">
+                      <span>{{question.option1}}</span>
+                </label><br>
+  
+                <label>
+                      <input type="radio" name="{{question.id}}" value="{{question.option2}}">
+                      <span>{{question.option2}}</span>
+                </label><br>
+  
+                <label>
+                      <input type="radio" name="{{question.id}}" value="{{question.option3}}">
+                      <span>{{question.option3}}</span>
+                </label><br>
+  
+                <label>
+                      <input type="radio" name="{{question.id}}" value="{{question.option4}}">
+                      <span>{{question.option4}}</span>
+                </label><br>
+              </div>
+
+              <a href="{% url 'quiz:question_update' question.id %}"><button style="width: 50%;" class="w3-button w3-right w3-indigo w3-small"><i class="material-icons">create</i>Edit</button></a>
+              <a href="{% url 'quiz:question_delete' question.id %}"><button style="width: 50%;" class="w3-button w3-left w3-red w3-small"><i class="material-icons">delete</i>Delete</button></a>
+    
+          </div>
+  
+          {% endfor %}
+  
+        </form>
+
+        <input class="w3-input w3-input" type="text" value="sans1812.pythonanywhere.com{% url 'quiz:exam' slug=slug %}" id="myInput">
+
+      <div class="tooltip">
+      <button class="w3-button w3-indigo w3-round w3-right" onclick="myFunction()" onmouseout="outFunc()">
+        <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+        Copy text
+        </button>
+      </div>
+      </div>
+
+      <div class="w3-container w3-padding-48 w3-half">
+
+        <img style="width: 100%;" src="https://st4.depositphotos.com/7781012/40802/v/450/depositphotos_408021112-stock-illustration-teachers-concept-academics-school-education.jpg" alt="">
+        <table class="w3-table-all w3-border w3-text-blue">
+          <caption class="w3-large w3-white">Leaderboard</caption>
+          <tr>
+            <th class="w3-indigo">PARTICIPANT</th>
+            <th class="w3-indigo">SCORE</th>
+            <th class="w3-indigo">RESPONSE</th>
+          </tr>
+          {% for report in reports %}
+          <tr>
+            <td style="color:black"><i class="material-icons">person</i>{{report.student}} <span class="w3-badge w3-indigo">{{report.attempt}}</span></td>
+            <td style="color:black">{{report.score}}</td>
+            <td><a style="color:black" href="{% url 'quiz:responses' slug=slug userid=report.student.id %}">Response </a></td>
+          </tr>
+          {% endfor %}
+        </table>
+
+        <img style="width: 100%;" src="https://www.pngmart.com/files/19/Quiz-Pattern-PNG-Clipart.png" alt="">
+
+        <table class="w3-table-all w3-text-indigo">
+          <tr>
+            <th class="w3-indigo">MY QUIZ</th>
+            <th class="w3-indigo">RESULT</th>
+          </tr>
+          {% for quiz in my_quizes %}
+          <tr>
+            <td><a href="{% url 'quiz:question_list' slug=quiz.slug %}"><i class="material-icons">assignment</i>{{quiz.title}} </a></td>
+            <td><a style="color:black" href="#"><i class="material-icons">people</i> <span class="w3-hide-small">Participants</span> <span>{{quiz.report_set.count}}</span></a></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+
+      <script>
+      function myFunction() {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Copied: " + copyText.value;
+      }
+
+      function outFunc() {
+        var tooltip = document.getElementById("myTooltip");
+        tooltip.innerHTML = "Copy to clipboard";
+      }
+      </script>
+
+<style>
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
+
+    </div>
+
+    {% else %}
+
+    <h1>You are not authorized to visit...</h1>
+
+    {% endif %}
+{% endblock %}

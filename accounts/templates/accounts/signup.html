@@ -1,0 +1,14 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<form class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin" action="/accounts/signup/" method="post">
+  <div class="w3-container w3-blue">
+  <h2>Sign up</h2>
+</div>
+  {% csrf_token %}
+    {{ form }}
+    <input class="w3-button w3-block w3-section w3-blue w3-ripple w3-padding" type="submit" value="Signup">
+</form>
+
+{% endblock %}

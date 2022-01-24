@@ -1,0 +1,100 @@
+{% extends 'quiz/base.html' %}
+
+{% block content %}
+
+<div class="w3-container w3-half w3-padding-48">
+
+  <img style="width: 100%;" src="https://st2.depositphotos.com/4216129/43837/v/450/depositphotos_438379952-stock-illustration-woman-as-software-developer-or.jpg" alt="">
+
+  <input class="w3-input w3-border w3-padding w3-round" type="text" placeholder="Search for quiz..." id="myInput" onkeyup="myFunction()">
+
+  <table class="w3-table-all w3-margin-top w3-text-indigo" id="myTable">
+    <tr>
+      <th class="w3-indigo" style="width:60%;">Quiz</th>
+      <th class="w3-indigo" style="width:50%;">Examiner</th>
+    </tr>
+
+    {% for quiz in quizes %}
+    <tr>
+      <td><a href="{% url 'quiz:exam' slug=quiz.slug %}"><i class="material-icons">assignment</i>  {{quiz.title}}</a></td>
+      <td style="color:black;"><i class="material-icons">person</i>  {{quiz.author}}</td>
+    </tr>
+
+    {% endfor %}
+
+  </table>
+  
+
+</div>
+
+<div class="w3-container w3-padding-48 w3-half">
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" class="w3-input w3-round" name="title" placeholder="Create quiz..." required>
+    <input class="w3-button w3-round w3-section w3-indigo w3-ripple w3-right" type="submit" value="Create">
+  </form>
+
+  <img style="width: 100%;" src="https://st4.depositphotos.com/7752738/30100/v/450/depositphotos_301007528-stock-illustration-failed-exam-or-bad-test.jpg" alt="">
+
+  {% if reports %}
+
+  <table class="w3-table-all w3-margin-bottom w3-text-indigo">
+    <caption class="w3-centre w3-white">Reports</caption>
+    <tr>
+      <th class="w3-indigo">QUIZ</th>
+      <th class="w3-indigo">SCORE</th>
+    </tr>
+    {% for report in reports %}
+    <tr>
+      <td><i class="material-icons">assignment</i>{{report.quiz}}</td>
+      <td style="color:black">{{report.score}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+  {% else %}
+
+  <h1>You have not tried any quiz yet...</h1>
+
+  {% endif %}
+
+  <img style="width: 100%;" src="https://www.pngmart.com/files/19/Quiz-Pattern-PNG-Clipart.png" alt="">
+
+  <table class="w3-table-all w3-text-indigo">
+    <tr>
+      <th class="w3-indigo">MY QUIZ</th>
+      <th class="w3-indigo">RESULT</th>
+    </tr>
+    {% for quiz in my_quizes %}
+    <tr>
+      <td><a href="{% url 'quiz:question_list' slug=quiz.slug %}"><i class="material-icons">assignment</i>{{quiz.title}} </a></td>
+      <td class="w3-text-black"><i class="material-icons">people</i> <span class="w3-hide-small">Participants</span> <span>{{quiz.report_set.count}}</span></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+</div>
+
+    <script>
+    function myFunction() {
+      var input, filter, table, tr, td, i;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
+
+{% endblock %}

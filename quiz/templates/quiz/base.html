@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>SansQuiz</title>
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  </head>
+
+  <style>
+    a {text-decoration:none;}
+    .helptext, .helptext ul{margin: 0 auto 20px;color:#650d0d;font-size: 0.9em;display:block;}
+    .errorlist li{padding: 10px;list-style-type: none;border: 2px ridge #9040108a;color:#f80303;margin:10px 0;}
+    .errorlist{padding:0;}
+    
+    @media screen and (max-width: 500px) {
+      .nav a {float: none;display: block;}
+    }
+  </style>
+<body style="max-width: 960px; margin: auto;">
+  
+  {% if user.is_authenticated %}
+
+    <div class="w3-top w3-padding w3-container" style="max-width: 960px; margin: auto;">
+      <div class="w3-bar w3-centre w3-large w3-indigo w3-round w3-border">
+        <a href="{% url 'quiz:quiz_list' %}" class="w3-bar-item w3-button w3-light-grey"> <i class="material-icons">home</i>  Home</a>
+        <a href="{% url 'explo:sans' %}" class="w3-bar-item w3-button"> Explo</a>
+        <form class="logout-link w3-right" action="{% url 'accounts:logout' %}" method="post">
+          {% csrf_token %}
+          <button class="w3-bar-item w3-button" type="submit">Logout</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div class="w3-top w3-padding w3-container" style="max-width: 960px; margin: auto;">
+      <div class="w3-bar w3-centre w3-large w3-black w3-round w3-border">
+        <a href="{% url 'accounts:login' %}" class="w3-bar-item w3-button">Login</a>
+        <a href="{% url 'accounts:signup' %}" class="w3-bar-item w3-button">Signup</a>
+      </div>
+    </div>
+  {% endif %}
+
+    <div class="w3-container w3-padding-48">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </body>
+</html>

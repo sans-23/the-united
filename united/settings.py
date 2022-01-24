@@ -40,6 +40,8 @@ INSTALLED_APPS = [
 
     'explo',
     'codeforces',
+    'quiz',
+    'accounts',
 ]
 
 MIDDLEWARE = [

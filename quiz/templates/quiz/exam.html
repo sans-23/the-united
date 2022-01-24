@@ -1,0 +1,85 @@
+{% extends 'quiz/base.html' %}
+{% block content %}
+
+{% if questions %}
+<div class="w3-half">
+      <img class="w3-padding" style="width: 100%;" src="https://t4.ftcdn.net/jpg/04/77/36/41/360_F_477364158_1Gsn4W1xy5VXwVcISTySu82v2mZC1gGI.webp">
+      <form action="{% url 'quiz:exam' slug=slug%}" method="post">
+
+            {% for question in questions %}
+            {% csrf_token %}
+        
+            <div class="w3-container w3-round-large w3-border w3-text-indigo w3-margin-top">
+              <div class="w3-container w3-text-black"> 
+                    <p>{{question.question}}</p>
+              </div>
+              <span class="w3-small w3-text-green w3-left">Marks : {{question.marks }}</span>   
+              <span class="w3-small w3-text-red w3-right">Negative : -{{question.negative}}</span>
+              <hr>
+              <div class="w3-container">
+              <label>
+                    <input type="radio" name="{{question.id}}" value="{{question.option1}}" required>
+                    <span>{{question.option1}}</span>
+              </label><br>
+        
+              <label>
+                    <input type="radio" name="{{question.id}}" value="{{question.option2}}">
+                    <span>{{question.option2}}</span>
+              </label><br>
+        
+              <label>
+                    <input type="radio" name="{{question.id}}" value="{{question.option3}}">
+                    <span>{{question.option3}}</span>
+              </label><br>
+        
+              <label>
+                    <input type="radio" name="{{question.id}}" value="{{question.option4}}">
+                    <span>{{question.option4}}</span>
+              </label>
+              </div>
+              <br>
+            </div>
+        
+            {% endfor %}
+        
+            <input class="w3-button w3-round w3-section w3-indigo w3-padding" type="submit" value="Submit">
+          </form>
+</div>
+
+<div class="w3-container w3-half w3-padding">
+
+      <img style="width: 100%;" src="https://st4.depositphotos.com/14695324/26264/v/950/depositphotos_262649380-stock-illustration-podium-victory-champion-vector-illustration.jpg" alt="">
+
+      {% if reports %}
+
+    <table class="w3-table-all w3-margin-top w3-text-indigo">
+      <caption class="w3-centre w3-white">LeaderBoard</caption>
+      <tr>
+        <th class="w3-indigo">Participant</th>
+        <th class="w3-indigo">SCORE</th>
+      </tr>
+      {% for report in reports %}
+      <tr>
+        <td><i class="material-icons">assignment</i>{{report.student}}</td>
+        <td style="color:black">{{report.score}}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  
+    {% else %}
+  
+    <h1>You are the first one trying the quiz</h1>
+  
+    {% endif %}
+</div>
+
+{% else %}
+
+<h1 class="w3-panel w3-leftbar w3-white w3-text-red"><i class="material-icons md-72">build</i>
+Ask Examiner to set question</h1>
+
+
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "quiz/base.html" %}
+{% block content %}
+
+<form class="w3-container w3-round-xlarge w3-indigo w3-margin-top" action="" method="POST">
+  <h3 class="w3-panel w3-round w3-light-grey w3-leftbar">Are you sure you want to delete the question:</h3>
+  <p>{{ question }}?</p>
+
+  {% csrf_token %}
+  <input class="w3-button w3-round w3-right w3-section w3-red w3-ripple w3-padding" type="submit" value="Yes, delete.">
+</form>
+
+{% endblock %}

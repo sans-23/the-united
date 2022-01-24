@@ -1,22 +1,17 @@
-{% extends 'explo/base.html' %}
+{% extends 'quiz/base.html' %}
 
 {% block content %}
-    <div style="height:50px"></div>
 
-    <div class="w3-container w3-moblie w3-centered w3-padding">
-        <span class="w3-tag w3-xxxlarge w3-red w3-round-xxlarge w3-card">U</span>
-        <span class="w3-tag w3-xxxlarge w3-round-xxlarge w3-card">S</span>
-        <span class="w3-tag w3-xxxlarge w3-yellow w3-round-xxlarge w3-card">C</span>
-        <span class="w3-tag w3-xxxlarge w3-round-xxlarge w3-card">S</span>
-    </div>
-
+<div class="w3-container" style="max-height: 300px;">
+  <img class="w3-left" style="width: 100%; max-width: 300px;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518157526-stock-illustration-soil-type-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518157526-stock-illustration-soil-type-abstract-concept-vector.jpg" alt="">
+  <img class="w3-right" style="width: 100%; max-width: 300px;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg" alt="">  
+</div>
      <div class="w3-row w3-padding">
       <button id="b1" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:white; background-color: black;" onclick="toggleSieve('sieve1')">SET 1</button>
       <button id="b2" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:black; background-color: white;" onclick="toggleSieve('sieve2')">SET 2</button>
     </div>
 
     <div id="sieve1" class="w3-container w3-mobile">
-        <div class="w3-card w3-border w3-center w3-black w3-padding w3-round-xxlarge">
         <form action="{% url 'explo:classifysoil' %}" method="post">
 
         {% csrf_token %}
@@ -39,7 +34,7 @@
 
         {% for sieve in sieve1 %}
         <tr>
-          <td><label class="w3-badge"> {{sieve}} </label></td>
+          <td><label> {{sieve}} mm</label></td>
           <td><input class="w3-input" type="number" id={{forloop.counter0}} name={{forloop.counter0}} min="0" step="0.01"></td>
         </tr>
         {% endfor %}
@@ -47,16 +42,14 @@
 
         <tr>
           <td><label class="w3-badge">  </label></td>
-          <td><input class="w3-button w3-round-large w3-block w3-section w3-red w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
+          <td><input class="w3-button w3-round-large w3-block w3-section w3-indigo w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
         </tr>
         </table>
 
         </form>
-        </div>
     </div>
 
     <div id="sieve2" class="w3-container w3-mobile" style="display:none">
-        <div class="w3-card w3-border w3-center w3-black w3-padding w3-round-xxlarge">
         <form action="{% url 'explo:classifysoil' %}" method="post">
 
         {% csrf_token %}
@@ -78,7 +71,7 @@
 
         {% for sieve in sieve2 %}
         <tr>
-          <td><label class="w3-badge"> {{sieve}} </label></td>
+          <td><label> {{sieve}} mm</label></td>
           <td><input class="w3-input" type="number" id={{forloop.counter0}} name={{forloop.counter0}} min="0" step="0.001"></td>
         </tr>
         {% endfor %}
@@ -86,11 +79,10 @@
 
         <tr>
           <td><label class="w3-badge">  </label></td>
-          <td><input class="w3-button w3-round-large w3-block w3-section w3-red w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
+          <td><input class="w3-button w3-round-large w3-block w3-section w3-indigo w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
         </tr>
         </table>
 
         </form>
-        </div>
     </div>
 {% endblock %}
