@@ -5,41 +5,38 @@ from .models import Feedback
 
 def home(request):
     if request.method == 'POST':
-        feedback = request.POST.get('feedback')
-        print(feedback)
-        new_feedback = Feedback(feedback=feedback, user=request.user)
-        new_feedback.save()
-        return redirect('home')
 
-    return render(request, 'accounts/home.html')
+        if 'login' in request.POST:
+            login_form= AuthenticationForm(data=request.POST)
+            if login_form.is_valid():
+                user = login_form.get_user()
+                login(request, user)
+                if 'next' in request.POST:
+                    return redirect(request.POST.get('next'))
+                else:
+                    return redirect('home')
+        
+        if 'signup' in request.POST:
+            signup_form = UserCreationForm(request.POST)
+            if signup_form.is_valid():
+                user = signup_form.save()
+                login(request, user)
+                return redirect('home')
 
-def signup_view(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('quiz:quiz_list')
+        if 'feedback' in request.POST:
+            feedback = request.POST.get('feedback')
+            print(feedback)
+            new_feedback = Feedback(feedback=feedback, user=request.user)
+            new_feedback.save()
+            return redirect('home')
+        signup_form = UserCreationForm()
+        login_form = AuthenticationForm()
     else:
-        form = UserCreationForm()
-    return render(request, 'accounts/signup.html', {'form': form})
-
-def login_view(request):
-    if request.method == 'POST':
-        form= AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            if 'next' in request.POST:
-                return redirect(request.POST.get('next'))
-            else:
-                return redirect('quiz:quiz_list')
-
-    else:
-        form = AuthenticationForm()
-    return render(request, 'accounts/login.html', {'form': form})
+        signup_form = UserCreationForm()
+        login_form = AuthenticationForm()
+    return render(request, 'accounts/home.html', {'login_form': login_form, 'signup_form': signup_form})
 
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('quiz:quiz_list')
+        return redirect('home')

@@ -30,6 +30,7 @@
       <div class="w3-bar w3-centre w3-large w3-indigo w3-round w3-border">
         <a href="{% url 'quiz:quiz_list' %}" class="w3-bar-item w3-button w3-light-grey"> <i class="material-icons">home</i>  Home</a>
         <a href="{% url 'explo:sans' %}" class="w3-bar-item w3-button"> Explo</a>
+        <a href="{% url 'problemset:problemset' %}" class="w3-bar-item w3-button"> Problemset</a>
         <form class="logout-link w3-right" action="{% url 'accounts:logout' %}" method="post">
           {% csrf_token %}
           <button class="w3-bar-item w3-button" type="submit">Logout</button>
@@ -48,6 +49,15 @@
     <div class="w3-container w3-padding-48">
       {% block content %}
       {% endblock %}
+
+      <hr>
+      <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <a href="https://www.linkedin.com/in/sanskar-jain-7285a91b3/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+        <a href="https://github.com/sans-23"><i class="fa fa-github w3-hover-opacity"></i></a>
+      </footer>
     </div>
   </body>
 </html>

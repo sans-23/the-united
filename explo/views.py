@@ -4,8 +4,10 @@ from . import utils
 import numpy as np
 import math
 
-def home(request):
-    return render(request, 'explo/home.html')
+def sans(request):
+    sieve1 = [63.0, 4.75, 2.00, 1.40, 1.00, 0.50, 0.25, 0.125, 0.075, 0.063, 0.020, 0.004, 0.002, 0.001]
+    sieve2 =  [63.0, 20.0, 6.3, 2.0, 0.6, 0.212, 0.063, 0.020, 0.006, 0.002]
+    return render(request, 'explo/form.html',{'sieve1':sieve1, 'sieve2':sieve2 })
 
 def classifysoil(request):
     if request.method == 'POST':
@@ -99,8 +101,3 @@ def classifysoil(request):
         return render(request, 'explo/sans.html', {'data':data, 'sieve':S, 'A': percentage_finer, 'zipper': zipper, 'add': additional})
     else:
         return redirect('sans:sans')
-
-def sans(request):
-    sieve1 = [63.0, 4.75, 2.00, 1.40, 1.00, 0.50, 0.25, 0.125, 0.075, 0.063, 0.020, 0.004, 0.002, 0.001]
-    sieve2 =  [63.0, 20.0, 6.3, 2.0, 0.6, 0.212, 0.063, 0.020, 0.006, 0.002]
-    return render(request, 'explo/form.html',{'sieve1':sieve1, 'sieve2':sieve2 })

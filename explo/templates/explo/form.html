@@ -1,88 +1,211 @@
 {% extends 'quiz/base.html' %}
 
 {% block content %}
+{% load static %}
 
-<div class="w3-container" style="max-height: 300px;">
-  <img class="w3-left" style="width: 100%; max-width: 300px;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518157526-stock-illustration-soil-type-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518157526-stock-illustration-soil-type-abstract-concept-vector.jpg" alt="">
-  <img class="w3-right" style="width: 100%; max-width: 300px;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg" alt="">  
+<div class="w3-container w3-half w3-padding-48">
+    <img style="width: 100%; max-width: 400px;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518157526-stock-illustration-soil-type-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518157526-stock-illustration-soil-type-abstract-concept-vector.jpg" alt="">
+       <div class="w3-row w3-padding">
+        <button id="b1" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:white; background-color: black;" onclick="toggleSieve('sieve1')">SET 1</button>
+        <button id="b2" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:black; background-color: white;" onclick="toggleSieve('sieve2')">SET 2</button>
+      </div>
+  
+      <div id="sieve1">
+          <form action="{% url 'explo:classifysoil' %}" method="post">
+  
+          {% csrf_token %}
+  
+          <div id="mass1" style="display:none">
+            <label class="w3-tag"> Total Mass </label>
+            <span><input class="w3-input" type="number" name="total_mass"></span>
+          </div>
+  
+          <table class="w3-table w3-centered w3-card w3-round-xlarge">
+          <tr class="w3-round-xlarge">
+            <th><h5><b>Sieve Size</b></h5></th>
+            <th>
+            <select class="w3-select w3-lightgrey" name="option1" onchange="showMass(this);">
+            <option value="1">Percentage Finer</option>
+            <option value="2">Mass Retained</option>
+            </select>
+            </th>
+          </tr>
+  
+          {% for sieve in sieve1 %}
+          <tr>
+            <td><label> {{sieve}} mm</label></td>
+            <td><input class="w3-input" type="number" id={{forloop.counter0}} name={{forloop.counter0}} min="0" step="0.01"></td>
+          </tr>
+          {% endfor %}
+          <input type="hidden" name="set" value="a">
+  
+          <tr>
+            <td><label class="w3-badge">  </label></td>
+            <td><input class="w3-button w3-round-large w3-block w3-section w3-indigo w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
+          </tr>
+          </table>
+  
+          </form>
+      </div>
+  
+      <div id="sieve2" style="display:none">
+          <form action="{% url 'explo:classifysoil' %}" method="post">
+  
+          {% csrf_token %}
+          <div id="mass2" style="display:none">
+            <label class="w3-tag"> Total Mass </label>
+            <input class="w3-input" type="number" name="total_mass">
+          </div>
+  
+          <table class="w3-table w3-centered w3-card-4 w3-round-xlarge">
+          <tr class="w3-round-xlarge">
+            <th><h5><b>Sieve Size</b></h5></th>
+            <th>
+            <select class="w3-select w3-lightgrey" name="option2" onchange="showMass2(this);">
+            <option value="1">Percentage Finer</option>
+            <option value="2">Mass Retained</option>
+            </select>
+            </th>
+          </tr>
+  
+          {% for sieve in sieve2 %}
+          <tr>
+            <td><label> {{sieve}} mm</label></td>
+            <td><input class="w3-input" type="number" id={{forloop.counter0}} name={{forloop.counter0}} min="0" step="0.001"></td>
+          </tr>
+          {% endfor %}
+          <input type="hidden" name="set" value="b">
+  
+          <tr>
+            <td><label class="w3-badge">  </label></td>
+            <td><input class="w3-button w3-round-large w3-block w3-section w3-indigo w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
+          </tr>
+          </table>
+  
+          </form>
+      </div>
+
 </div>
-     <div class="w3-row w3-padding">
-      <button id="b1" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:white; background-color: black;" onclick="toggleSieve('sieve1')">SET 1</button>
-      <button id="b2" class="w3-button w3-ripple w3-col s6 w3-center w3-round-large" style="color:black; background-color: white;" onclick="toggleSieve('sieve2')">SET 2</button>
-    </div>
 
-    <div id="sieve1" class="w3-container w3-mobile">
-        <form action="{% url 'explo:classifysoil' %}" method="post">
 
-        {% csrf_token %}
+<div class="w3-container w3-padding w3-half w3-padding-48">
+  <img style="width: 100%; max-width: 400px;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg" alt="">  
 
-        <div id="mass1" style="display:none">
-          <label class="w3-tag"> Total Mass </label>
-          <span><input class="w3-input" type="number" name="total_mass"></span>
-        </div>
+  <ul class="w3-ul">
 
-        <table class="w3-table w3-centered w3-card-4 w3-round-xlarge">
-        <tr class="w3-round-xlarge">
-          <th><h5><b>Sieve Size</b></h5></th>
-          <th>
-          <select class="w3-select w3-lightgrey" name="option1" onchange="showMass(this);">
-          <option value="1">Percentage Finer</option>
-          <option value="2">Mass Retained</option>
-          </select>
-          </th>
-        </tr>
+  <li><div><span class="w3-xlarge"><b>Superviser</b></span></div></li>
 
-        {% for sieve in sieve1 %}
-        <tr>
-          <td><label> {{sieve}} mm</label></td>
-          <td><input class="w3-input" type="number" id={{forloop.counter0}} name={{forloop.counter0}} min="0" step="0.01"></td>
-        </tr>
-        {% endfor %}
-        <input type="hidden" name="set" value="a">
+  <li class="w3-bar">
+      <img src="https://iitbhu.ac.in/sites/default/files/styles/iitbhu_profile/public/user_pictures/picture-288-1529740644.jpg?itok=q9sCoKpZ" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal01').style.display='block'">
 
-        <tr>
-          <td><label class="w3-badge">  </label></td>
-          <td><input class="w3-button w3-round-large w3-block w3-section w3-indigo w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
-        </tr>
-        </table>
+      <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+      <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+      <div class="w3-modal-content w3-animate-zoom">
+        <img src="https://iitbhu.ac.in/sites/default/files/styles/iitbhu_profile/public/user_pictures/picture-288-1529740644.jpg?itok=q9sCoKpZ" style="width:100%">
+      </div>
+      </div>
 
-        </form>
-    </div>
+          <a href="https://iitbhu.ac.in/dept/civ/people/supriyaciv">
+              <div class="w3-bar-item">
+                  <span class="w3-xlarge">Dr. Supriya Mohanty</span><br>
+                  <span>IIT BHU Prof.</span>
+              </div>
+          </a>
+  </li>
 
-    <div id="sieve2" class="w3-container w3-mobile" style="display:none">
-        <form action="{% url 'explo:classifysoil' %}" method="post">
+  <li><div><span class="w3-xlarge"><b>Exploratory Projects</b></span></div></li>
 
-        {% csrf_token %}
-        <div id="mass2" style="display:none">
-          <label class="w3-tag"> Total Mass </label>
-          <input class="w3-input" type="number" name="total_mass">
-        </div>
 
-        <table class="w3-table w3-centered w3-card-4 w3-round-xlarge">
-        <tr class="w3-round-xlarge">
-          <th><h5><b>Sieve Size</b></h5></th>
-          <th>
-          <select class="w3-select w3-lightgrey" name="option2" onchange="showMass2(this);">
-          <option value="1">Percentage Finer</option>
-          <option value="2">Mass Retained</option>
-          </select>
-          </th>
-        </tr>
+  <li class="w3-bar">
+      <img src="https://lh3.googleusercontent.com/fife/ABSRlIoef-aVS7W1iyATPvhb5-c0MSCv4dNO2mWZ0rB-FnH3YjY3_vuK7H-E8U_YS26K7FnI-GFrk0aOhfo4mGY-si4tFJ7-4IlK8iUoh5wrAbD1TsYHbciSepMHT6ZdO4FPcXrmozGlZPqIVFbRn8ksosNbmHFaTR2e4YemH6NeqV1c7RBpDFYdgwDM40cQOcwBcn5Nnf5Ckly91nqzB9Y1LTRPjOhDClE4EmEtUZ6e12efc-6eICRg0N60lC4Ti3ekFFLS7qRpb19ffZdfgYNIE3CXzmsBE5IrD_lOydXZerJpseR-rfXSk7c-HPcXwtbpphym3PzcgWSP0CcCeOuM8jNTxYKAViVLJpEG2t7MpzgVve1YsYuGibx9v1U9nUCuuTVeJVsxbXfUCOqIXad8pLPJpjCkU-2XGuIG7P9CzZvHknAcLjSgSEM5ttbsIhRSis8v_ogWkERT9Fd5ZE5aHMiLzjSwGPeIDrt5H6_c6_VbUU4F8i-zHu8Hq2Nml6JjY72Y2eSxxZa8z3xEiRe2HPbr-GNN_JKKPc8Wb7M5bweNov8ZqYFn76RHsqHZhh66FjYujSGr7tOQsv7VCittgGGXZdNWeQxvoAf_YC1UELuQsiBTiTR4AbEM4YlQIWd3Ypgmb7G5ljL6ruaOAJgHZT47YDJvyzmi1piQLoe_ybmnLV_eRGN3UR2lPd20XOCFP6OKa4IY5g9-_VPC41IYgGIeiQdfIhLxSr_qsf5rklzaLg=s192-c" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal02').style.display='block'">
 
-        {% for sieve in sieve2 %}
-        <tr>
-          <td><label> {{sieve}} mm</label></td>
-          <td><input class="w3-input" type="number" id={{forloop.counter0}} name={{forloop.counter0}} min="0" step="0.001"></td>
-        </tr>
-        {% endfor %}
-        <input type="hidden" name="set" value="b">
+      <div id="modal02" class="w3-modal" onclick="this.style.display='none'">
+      <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+      <div class="w3-modal-content w3-animate-zoom">
+        <img src="https://lh3.googleusercontent.com/fife/ABSRlIoef-aVS7W1iyATPvhb5-c0MSCv4dNO2mWZ0rB-FnH3YjY3_vuK7H-E8U_YS26K7FnI-GFrk0aOhfo4mGY-si4tFJ7-4IlK8iUoh5wrAbD1TsYHbciSepMHT6ZdO4FPcXrmozGlZPqIVFbRn8ksosNbmHFaTR2e4YemH6NeqV1c7RBpDFYdgwDM40cQOcwBcn5Nnf5Ckly91nqzB9Y1LTRPjOhDClE4EmEtUZ6e12efc-6eICRg0N60lC4Ti3ekFFLS7qRpb19ffZdfgYNIE3CXzmsBE5IrD_lOydXZerJpseR-rfXSk7c-HPcXwtbpphym3PzcgWSP0CcCeOuM8jNTxYKAViVLJpEG2t7MpzgVve1YsYuGibx9v1U9nUCuuTVeJVsxbXfUCOqIXad8pLPJpjCkU-2XGuIG7P9CzZvHknAcLjSgSEM5ttbsIhRSis8v_ogWkERT9Fd5ZE5aHMiLzjSwGPeIDrt5H6_c6_VbUU4F8i-zHu8Hq2Nml6JjY72Y2eSxxZa8z3xEiRe2HPbr-GNN_JKKPc8Wb7M5bweNov8ZqYFn76RHsqHZhh66FjYujSGr7tOQsv7VCittgGGXZdNWeQxvoAf_YC1UELuQsiBTiTR4AbEM4YlQIWd3Ypgmb7G5ljL6ruaOAJgHZT47YDJvyzmi1piQLoe_ybmnLV_eRGN3UR2lPd20XOCFP6OKa4IY5g9-_VPC41IYgGIeiQdfIhLxSr_qsf5rklzaLg=s192-c" style="width:100%">
+      </div>
+      </div>
 
-        <tr>
-          <td><label class="w3-badge">  </label></td>
-          <td><input class="w3-button w3-round-large w3-block w3-section w3-indigo w3-ripple w3-padding" type="submit" value="CLASSIFY"></td>
-        </tr>
-        </table>
+          <a href="https://colab.research.google.com/drive/1LBJSN49G34-LQXpQFIh6GJM5VnuPqSpd">
+          <div class="w3-bar-item">
+          <span class="w3-xlarge">Soil Classification <span class="w3-hide-large">(USCS)</span></span><br>
+          <span>Sanskar Jain</span>
+          </div>
+          </a>
+  </li>
 
-        </form>
-    </div>
+  <li class="w3-bar">
+      <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal03').style.display='block'">
+
+      <div id="modal03" class="w3-modal" onclick="this.style.display='none'">
+      <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+      <div class="w3-modal-content w3-animate-zoom">
+        <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" style="width:100%">
+      </div>
+      </div>
+
+          <a href="https://colab.research.google.com/drive/1S6dQK17fSjibz5eQTWc_XCn8s1hXJxeD?usp=sharing">
+          <div class="w3-bar-item">
+          <span class="w3-xlarge">Shear strength of soil</span><br>
+          <span>Mansi</span>
+          </div>
+          </a>
+
+  </li>
+
+  <li class="w3-bar">
+      <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal04').style.display='block'">
+
+      <div id="modal04" class="w3-modal" onclick="this.style.display='none'">
+      <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+      <div class="w3-modal-content w3-animate-zoom">
+        <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" style="width:100%">
+      </div>
+      </div>
+          <a href="https://colab.research.google.com/drive/19zMZyieAhHp9R6QoIo-4eaX2xyhlSdZT?usp=sharing">
+          <div class="w3-bar-item">
+          <span class="w3-xlarge">Stability of Slopes</span><br>
+          <span>Rakshit Gautam</span>
+          </div>
+          </a>
+
+  </li>
+
+  <li class="w3-bar">
+      <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal05').style.display='block'">
+
+      <div id="modal05" class="w3-modal" onclick="this.style.display='none'">
+      <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+      <div class="w3-modal-content w3-animate-zoom">
+        <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" style="width:100%">
+      </div>
+      </div>
+
+          <a href="https://colab.research.google.com/drive/1PL8uvkCtF5iJvkhi7YIEx1tRbWFhWAX5?usp=sharing">
+          <div class="w3-bar-item">
+          <span class="w3-xlarge">Permeability</span><br>
+          <span>Anand</span>
+          </div>
+          </a>
+  </li>
+
+  <li class="w3-bar">
+      <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.53SljZHGIFASfQNeAifrsQAAAA%26pid%3DApi&f=1" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal06').style.display='block'">
+
+      <div id="modal06" class="w3-modal" onclick="this.style.display='none'">
+      <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+      <div class="w3-modal-content w3-animate-zoom">
+        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.53SljZHGIFASfQNeAifrsQAAAA%26pid%3DApi&f=1" style="width:100%;">
+      </div>
+      </div>
+          <a href="https://colab.research.google.com/drive/1n2lXI92PVB_wcb-U9wS_dzbScBrDVqfl">
+          <div class="w3-bar-item">
+          <span class="w3-xlarge">Consolidation</span><br>
+          <span>Varad Patel</span>
+          </div>
+          </a>
+  </li>
+</ul>
+</div>
+
 {% endblock %}

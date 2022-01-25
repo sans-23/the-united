@@ -2,32 +2,26 @@
 
 {% block content %}
 {% load static %}
-    <div style="height:50px"></div>
-
-    <div class="w3-container w3-moblie w3-centered w3-padding">
-        <span class="w3-tag w3-xxxlarge w3-red w3-round-xxlarge w3-card">U</span>
-        <span class="w3-tag w3-spin w3-xxxlarge w3-round-xxlarge w3-card">S</span>
-        <span class="w3-tag w3-xxxlarge w3-yellow w3-round-xxlarge w3-card">C</span>
-        <span class="w3-tag w3-spin w3-xxxlarge w3-round-xxlarge w3-card">S</span>
-    </div>
 
     {% if data %}
-        <div class="w3-container w3-mobile" style="padding:8px;">
-            <div class="w3-container w3-mobile w3-card w3-black" style="border-top-left-radius: 16px; border-top-right-radius: 16px;">
+        <div class="w3-container w3-half w3-padding-48 w3-margin-top w3-mobile w3-border w3-round-xlarge" style="padding:8px;">
+            <div class="w3-container w3-mobile" >
                 <a href="{% url 'explo:sans' %}" class="w3-left w3-margin"><span class="material-icons w3-xxlarge">arrow_back</span></a>
                 <a href="https://colab.research.google.com/drive/1LBJSN49G34-LQXpQFIh6GJM5VnuPqSpd?usp=sharing" class="w3-right w3-margin"><span class="material-icons w3-xxlarge">code</span></a>
-                <h2 class="w3-center w3-margin" style="text-shadow:1px 1px 0 #444"><b>{{data.USCS_NAME}}</b></h2>
-                <h3 class="w3-center">{{data.USCS_ABBR}}</h3>
+                <h2 class="w3-center w3-margin w3-text-indigo" style="text-shadow:1px 1px 0 #444"><b>{{data.USCS_NAME}}</b></h2>
+                <h3 class="w3-center w3-text-dark-grey">{{data.USCS_ABBR}}</h3>
 
             </div>
 
-            <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+            <hr>
 
-            <div class="w3-container w3-mobile w3-card w3-black" style="border-bottom-left-radius: 16px; border-bottom-right-radius: 16px;">
+            <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+            <hr>
+            <div class="w3-container w3-mobile">
                 {% if data.Cu %}
-                <details class="w3-container w3-xlarge">
+                <details class="w3-container w3-large">
                     <summary>Show Table</summary>
-                    <table class="w3-table w3-light-grey w3-centered w3-card-4 w3-round-xlarge" >
+                    <table class="w3-table w3-light-grey w3-centered w3-border w3-round-xlarge" >
                     <tr class="w3-dark-grey w3-round-xlarge">
                       <th><h5>Sieve Size</h5></th>
                       <th><h5>Percentage Finer</h5></th>
@@ -41,14 +35,14 @@
                     {% endfor %}
                 </table>
                 </details>
-                <p class="w3-container w3-xlarge">Cu: {{data.Cu|floatformat:3}}</p>
-                <p class="w3-container w3-xlarge">Cc: {{data.Cc|floatformat:3}}</p>
+                <p class="w3-container w3-large">Cu: {{data.Cu|floatformat:3}}</p>
+                <p class="w3-container w3-large">Cc: {{data.Cc|floatformat:3}}</p>
                 {% if add.gravel %}
-                <p class="w3-container w3-xlarge">Gravel: {{add.gravel}}</p>
-                <p class="w3-container w3-xlarge">Coarse-sand: {{add.coarsesand}}</p>
-                <p class="w3-container w3-xlarge">Medium-sand: {{add.mediumsand}}</p>
-                <p class="w3-container w3-xlarge">Fine-sand: {{add.finesand}}</p>
-                <p class="w3-container w3-xlarge">Silt: {{add.silt}}</p>
+                <p class="w3-container w3-large">Gravel: {{add.gravel}}</p>
+                <p class="w3-container w3-large">Coarse-sand: {{add.coarsesand}}</p>
+                <p class="w3-container w3-large">Medium-sand: {{add.mediumsand}}</p>
+                <p class="w3-container w3-large">Fine-sand: {{add.finesand}}</p>
+                <p class="w3-container w3-large">Silt: {{add.silt}}</p>
                 {% endif %}
                 {% endif %}
             </div>
@@ -65,7 +59,7 @@
                 size: 8
               },
               line: {
-                color: 'rgb(219, 64, 82)',
+                color: 'rgb(63, 81, 181)',
                 width: 2
               },
             };
@@ -74,26 +68,26 @@
 
             var layout = {
               plot_bgcolor :'white',
-              paper_bgcolor: 'black',
+              paper_bgcolor: 'white',
               title:'Particle size distribution curve',
               titlefont: {
                   family: 'Arial, sans-serif',
                   size: 24,
-                  color: 'white',
+                  color: 'grey',
                 },
               xaxis: {
                 title: 'Sieve Size (log scale)',
                 titlefont: {
                   family: 'Arial, sans-serif',
                   size: 18,
-                  color: 'white',
+                  color: 'grey',
                 },
                 ticks: 'outside',
                 tick0: 0,
                 tickfont: {
                   family: 'Old Standard TT, serif',
                   size: 14,
-                  color: 'white',
+                  color: 'grey',
                 },
               },
               yaxis: {
@@ -101,7 +95,7 @@
                 titlefont: {
                   family: 'Arial, sans-serif',
                   size: 18,
-                  color: 'white',
+                  color: 'grey',
                 },
                 autotick: false,
                 ticks: 'outside',
@@ -110,7 +104,7 @@
                 tickfont: {
                   family: 'Old Standard TT, serif',
                   size: 14,
-                  color: 'white',
+                  color: 'grey',
                 },
               },
             };
@@ -120,6 +114,127 @@
             </script>
 
         </div>
+
+        <div class="w3-container w3-padding w3-half w3-padding-48">
+          <img style="width: 100%; max-width: 400px;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg" alt="">  
+        
+          <ul class="w3-ul">
+        
+          <li><div><span class="w3-xlarge"><b>Superviser</b></span></div></li>
+        
+          <li class="w3-bar">
+              <img src="https://iitbhu.ac.in/sites/default/files/styles/iitbhu_profile/public/user_pictures/picture-288-1529740644.jpg?itok=q9sCoKpZ" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal01').style.display='block'">
+        
+              <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+              <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+              <div class="w3-modal-content w3-animate-zoom">
+                <img src="https://iitbhu.ac.in/sites/default/files/styles/iitbhu_profile/public/user_pictures/picture-288-1529740644.jpg?itok=q9sCoKpZ" style="width:100%">
+              </div>
+              </div>
+        
+                  <a href="https://iitbhu.ac.in/dept/civ/people/supriyaciv">
+                      <div class="w3-bar-item">
+                          <span class="w3-xlarge">Dr. Supriya Mohanty</span><br>
+                          <span>IIT BHU Prof.</span>
+                      </div>
+                  </a>
+          </li>
+        
+          <li><div><span class="w3-xlarge"><b>Exploratory Projects</b></span></div></li>
+        
+        
+          <li class="w3-bar">
+              <img src="https://lh3.googleusercontent.com/fife/ABSRlIoef-aVS7W1iyATPvhb5-c0MSCv4dNO2mWZ0rB-FnH3YjY3_vuK7H-E8U_YS26K7FnI-GFrk0aOhfo4mGY-si4tFJ7-4IlK8iUoh5wrAbD1TsYHbciSepMHT6ZdO4FPcXrmozGlZPqIVFbRn8ksosNbmHFaTR2e4YemH6NeqV1c7RBpDFYdgwDM40cQOcwBcn5Nnf5Ckly91nqzB9Y1LTRPjOhDClE4EmEtUZ6e12efc-6eICRg0N60lC4Ti3ekFFLS7qRpb19ffZdfgYNIE3CXzmsBE5IrD_lOydXZerJpseR-rfXSk7c-HPcXwtbpphym3PzcgWSP0CcCeOuM8jNTxYKAViVLJpEG2t7MpzgVve1YsYuGibx9v1U9nUCuuTVeJVsxbXfUCOqIXad8pLPJpjCkU-2XGuIG7P9CzZvHknAcLjSgSEM5ttbsIhRSis8v_ogWkERT9Fd5ZE5aHMiLzjSwGPeIDrt5H6_c6_VbUU4F8i-zHu8Hq2Nml6JjY72Y2eSxxZa8z3xEiRe2HPbr-GNN_JKKPc8Wb7M5bweNov8ZqYFn76RHsqHZhh66FjYujSGr7tOQsv7VCittgGGXZdNWeQxvoAf_YC1UELuQsiBTiTR4AbEM4YlQIWd3Ypgmb7G5ljL6ruaOAJgHZT47YDJvyzmi1piQLoe_ybmnLV_eRGN3UR2lPd20XOCFP6OKa4IY5g9-_VPC41IYgGIeiQdfIhLxSr_qsf5rklzaLg=s192-c" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal02').style.display='block'">
+        
+              <div id="modal02" class="w3-modal" onclick="this.style.display='none'">
+              <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+              <div class="w3-modal-content w3-animate-zoom">
+                <img src="https://lh3.googleusercontent.com/fife/ABSRlIoef-aVS7W1iyATPvhb5-c0MSCv4dNO2mWZ0rB-FnH3YjY3_vuK7H-E8U_YS26K7FnI-GFrk0aOhfo4mGY-si4tFJ7-4IlK8iUoh5wrAbD1TsYHbciSepMHT6ZdO4FPcXrmozGlZPqIVFbRn8ksosNbmHFaTR2e4YemH6NeqV1c7RBpDFYdgwDM40cQOcwBcn5Nnf5Ckly91nqzB9Y1LTRPjOhDClE4EmEtUZ6e12efc-6eICRg0N60lC4Ti3ekFFLS7qRpb19ffZdfgYNIE3CXzmsBE5IrD_lOydXZerJpseR-rfXSk7c-HPcXwtbpphym3PzcgWSP0CcCeOuM8jNTxYKAViVLJpEG2t7MpzgVve1YsYuGibx9v1U9nUCuuTVeJVsxbXfUCOqIXad8pLPJpjCkU-2XGuIG7P9CzZvHknAcLjSgSEM5ttbsIhRSis8v_ogWkERT9Fd5ZE5aHMiLzjSwGPeIDrt5H6_c6_VbUU4F8i-zHu8Hq2Nml6JjY72Y2eSxxZa8z3xEiRe2HPbr-GNN_JKKPc8Wb7M5bweNov8ZqYFn76RHsqHZhh66FjYujSGr7tOQsv7VCittgGGXZdNWeQxvoAf_YC1UELuQsiBTiTR4AbEM4YlQIWd3Ypgmb7G5ljL6ruaOAJgHZT47YDJvyzmi1piQLoe_ybmnLV_eRGN3UR2lPd20XOCFP6OKa4IY5g9-_VPC41IYgGIeiQdfIhLxSr_qsf5rklzaLg=s192-c" style="width:100%">
+              </div>
+              </div>
+        
+                  <a href="https://colab.research.google.com/drive/1LBJSN49G34-LQXpQFIh6GJM5VnuPqSpd">
+                  <div class="w3-bar-item">
+                  <span class="w3-xlarge">Soil Classification <span class="w3-hide-large">(USCS)</span></span><br>
+                  <span>Sanskar Jain</span>
+                  </div>
+                  </a>
+          </li>
+        
+          <li class="w3-bar">
+              <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal03').style.display='block'">
+        
+              <div id="modal03" class="w3-modal" onclick="this.style.display='none'">
+              <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+              <div class="w3-modal-content w3-animate-zoom">
+                <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" style="width:100%">
+              </div>
+              </div>
+        
+                  <a href="https://colab.research.google.com/drive/1S6dQK17fSjibz5eQTWc_XCn8s1hXJxeD?usp=sharing">
+                  <div class="w3-bar-item">
+                  <span class="w3-xlarge">Shear strength of soil</span><br>
+                  <span>Mansi</span>
+                  </div>
+                  </a>
+        
+          </li>
+        
+          <li class="w3-bar">
+              <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal04').style.display='block'">
+        
+              <div id="modal04" class="w3-modal" onclick="this.style.display='none'">
+              <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+              <div class="w3-modal-content w3-animate-zoom">
+                <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" style="width:100%">
+              </div>
+              </div>
+                  <a href="https://colab.research.google.com/drive/19zMZyieAhHp9R6QoIo-4eaX2xyhlSdZT?usp=sharing">
+                  <div class="w3-bar-item">
+                  <span class="w3-xlarge">Stability of Slopes</span><br>
+                  <span>Rakshit Gautam</span>
+                  </div>
+                  </a>
+        
+          </li>
+        
+          <li class="w3-bar">
+              <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal05').style.display='block'">
+        
+              <div id="modal05" class="w3-modal" onclick="this.style.display='none'">
+              <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+              <div class="w3-modal-content w3-animate-zoom">
+                <img src="https://st.depositphotos.com/1537427/3571/v/450/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg, https://st.depositphotos.com/1537427/3571/v/600/depositphotos_35716593-stock-illustration-vector-male-user-icon.jpg" style="width:100%">
+              </div>
+              </div>
+        
+                  <a href="https://colab.research.google.com/drive/1PL8uvkCtF5iJvkhi7YIEx1tRbWFhWAX5?usp=sharing">
+                  <div class="w3-bar-item">
+                  <span class="w3-xlarge">Permeability</span><br>
+                  <span>Anand</span>
+                  </div>
+                  </a>
+          </li>
+        
+          <li class="w3-bar">
+              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.53SljZHGIFASfQNeAifrsQAAAA%26pid%3DApi&f=1" class="w3-bar-item w3-circle" style="width:100px" onclick="document.getElementById('modal06').style.display='block'">
+        
+              <div id="modal06" class="w3-modal" onclick="this.style.display='none'">
+              <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+              <div class="w3-modal-content w3-animate-zoom">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.53SljZHGIFASfQNeAifrsQAAAA%26pid%3DApi&f=1" style="width:100%;">
+              </div>
+              </div>
+                  <a href="https://colab.research.google.com/drive/1n2lXI92PVB_wcb-U9wS_dzbScBrDVqfl">
+                  <div class="w3-bar-item">
+                  <span class="w3-xlarge">Consolidation</span><br>
+                  <span>Varad Patel</span>
+                  </div>
+                  </a>
+          </li>
+        </ul>
+        </div>
+
 
     {% endif %}
 
