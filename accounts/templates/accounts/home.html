@@ -4,6 +4,9 @@
 <title>Home</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link rel="icon" href="{% static 'img/speedo-dark.png' %}">
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -20,6 +23,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-text-dark-grey">
   <!-- Avatar image in top left corner -->
+  <img style="width: 100%;" src="{% static 'img/logo2.png' %}" alt="">
   <a href="#" class="w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
@@ -36,10 +40,18 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <i class="fa fa-envelope w3-xxlarge"></i>
     <p>CONTACT</p>
   </a>
+  {% if user.is_authenticated %}
+  <form class="w3-bar-item w3-button" action="{% url 'accounts:logout' %}" method="post">
+    {% csrf_token %}
+    <button class="w3-button" type="submit"><i class="fa fa-sign-in w3-xxlarge w3-container"></i> <br> LOGOUT</button>
+  </form>
+
+  {% else %}
   <a href="#authenticate" class="w3-bar-item w3-button w3-padding-large w3-hover-grey">
     <i class="fa fa-sign-in w3-xxlarge"></i>
     <p>LOGIN</p>
   </a>
+  {% endif %}
 </nav>
 
 <!-- Navbar on small screens (Hidden on medium and large screens) -->

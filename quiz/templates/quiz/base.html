@@ -18,40 +18,75 @@
     .errorlist li{padding: 10px;list-style-type: none;border: 2px ridge #9040108a;color:#f80303;margin:10px 0;}
     .errorlist{padding:0;}
     
-    @media screen and (max-width: 500px) {
-      .nav a {float: none;display: block;}
+    .sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      background-color: #ffffff;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 90px;
     }
+
+    .sidenav a {
+      text-decoration: none;
+      font-size: 25px;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 50px;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+
+    #main {
+      transition: margin-right .5s;
+      padding: 16px;
+    }
+
   </style>
 <body style="max-width: 960px; margin: auto;">
-  
-  {% if user.is_authenticated %}
 
-    <div class="w3-top w3-padding w3-container" style="max-width: 960px; margin: auto;">
+    <div class="w3-top w3-padding w3-container w3-hide-small" style="max-width: 960px; margin: auto;">
       <div class="w3-bar w3-centre w3-large w3-indigo w3-round w3-border">
-        <a href="{% url 'quiz:quiz_list' %}" class="w3-bar-item w3-button w3-light-grey"> <i class="material-icons">home</i>  Home</a>
+        <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-light-grey"> <i class="material-icons">home</i>  Home</a>
+        <a href="{% url 'quiz:quiz_list' %}" class="w3-bar-item w3-button">Quiz</a>
         <a href="{% url 'explo:sans' %}" class="w3-bar-item w3-button"> Explo</a>
         <a href="{% url 'problemset:problemset' %}" class="w3-bar-item w3-button"> Problemset</a>
-        <form class="logout-link w3-right" action="{% url 'accounts:logout' %}" method="post">
+        <form class="w3-right" action="{% url 'accounts:logout' %}" method="post">
           {% csrf_token %}
           <button class="w3-bar-item w3-button" type="submit">Logout</button>
         </form>
       </div>
     </div>
-  {% else %}
-    <div class="w3-top w3-padding w3-container" style="max-width: 960px; margin: auto;">
-      <div class="w3-bar w3-centre w3-large w3-black w3-round w3-border">
-        <a href="{% url 'accounts:login' %}" class="w3-bar-item w3-button">Login</a>
-        <a href="{% url 'accounts:signup' %}" class="w3-bar-item w3-button">Signup</a>
+
+    <div id="mySidenav" class="sidenav w3-text-dark-grey">
+      <a href="{% url 'home' %}" class="w3-button w3-block">Home</a>
+      <a href="{% url 'quiz:quiz_list' %}" class="w3-button w3-block">Quiz</a>
+      <a href="{% url 'explo:sans' %}" class="w3-button w3-block"> Explo</a>
+      <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block"> Problemset</a>
+    </div>
+    
+    <div id="main" class="w3-top w3-padding w3-container w3-white w3-hide-large w3-hide-medium" style="max-width: 960px; margin: auto;">
+      <div class="w3-bar w3-centre w3-large w3-round w3-border">
+        <img class="w3-bar-item w3-left" style="width: auto; height: 60px;" src="{% static 'img/speedo-light.png' %}" alt="logo">
+        <span class="w3-bar-item w3-text-dark-grey w3-right" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
       </div>
     </div>
-  {% endif %}
 
     <div class="w3-container w3-padding-48">
       {% block content %}
       {% endblock %}
 
       <hr>
-      <footer class="w3-content w3-padding-64 w3-text-grey w3-xlarge">
+      <footer class="w3-content w3-padding-64 w3-text-dark-grey w3-xlarge w3-margin-left">
         <i class="fa fa-facebook-official w3-hover-opacity"></i>
         <i class="fa fa-instagram w3-hover-opacity"></i>
         <i class="fa fa-twitter w3-hover-opacity"></i>
@@ -59,5 +94,19 @@
         <a href="https://github.com/sans-23"><i class="fa fa-github w3-hover-opacity"></i></a>
       </footer>
     </div>
+
+
+    <script>
+      function openNav() {
+        if(document.getElementById("mySidenav").style.width == ""){
+          document.getElementById("mySidenav").style.width = "200px";
+          document.getElementById("main").style.marginRight = "200px";
+        }else{
+          document.getElementById("mySidenav").style.width = "";
+          document.getElementById("main").style.marginRight= "0";
+        }
+      }
+      </script>
+
   </body>
 </html>

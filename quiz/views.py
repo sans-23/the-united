@@ -6,7 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/')
 def quiz_list(request):
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -22,7 +22,7 @@ def quiz_list(request):
     reports = Report.objects.filter(student=request.user)
     return render(request, 'quiz/quizes.html', {'quizes': quizes, 'my_quizes': my_quizes, 'reports':reports})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/')
 def question_list(request, slug):
     quiz = Quiz.objects.get(slug=str(slug))
     questions = Question.objects.filter(quiz=quiz)
@@ -30,7 +30,7 @@ def question_list(request, slug):
     reports = Report.objects.filter(quiz=quiz)
     return render(request, 'quiz/questions.html', {'reports':reports, 'questions': questions, 'my_quizes': my_quizes, 'slug':slug, 'quiz':quiz})
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/')
 def response_page(request, slug, userid):
     quiz = Quiz.objects.filter(slug=slug)[0]
     user = User.objects.filter(id=userid)[0]
@@ -38,7 +38,7 @@ def response_page(request, slug, userid):
     return render(request, 'quiz/records.html', {'response' : response})
 
 
-@login_required(login_url='/accounts/login/')
+@login_required(login_url='/')
 def exam_view(request, slug):
     quiz = Quiz.objects.filter(slug=str(slug))[0]
     questions = Question.objects.filter(quiz=quiz)
