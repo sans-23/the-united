@@ -6,11 +6,10 @@
 
       <div class="w3-container w3-padding-48 w3-half">
         <img class="w3-padding" style="width: 100%;" src="https://st2.depositphotos.com/6419692/10851/v/950/depositphotos_108511814-stock-illustration-exam-student-stress-schoolgirl-sleeps.jpg">
-        <form action="{% url 'quiz:question_list' slug=slug%}" method="post">
           <p>Total Questions : {{quiz.question_set.count}}</p>
 
-          {% if quiz.question_set.count > 4 and request.user.profile.is_pro == False %}
-          <p style="color:red"><i class="material-icons">policy</i> <span>MAX QUES LIMIT</span></p>
+          {% if quiz.question_set.count >= 6 %}
+          <p style="color:red"><span>MAX QUES LIMIT</span></p>
           {% else %}
           <button class="w3-button w3-indigo w3-round w3-bar"><a href="{% url 'quiz:question_create' slug=quiz.slug %}">Add Question</a></button>
           {% endif %}
@@ -50,7 +49,6 @@
   
           {% endfor %}
   
-        </form>
 
         <input class="w3-input w3-input" type="text" value="sans1812.pythonanywhere.com{% url 'quiz:exam' slug=slug %}" id="myInput">
 

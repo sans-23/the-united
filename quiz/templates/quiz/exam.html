@@ -9,14 +9,13 @@
             {% for question in questions %}
             {% csrf_token %}
         
-            <div class="w3-container w3-round-large w3-border w3-text-indigo w3-margin-top">
-              <div class="w3-container w3-text-black"> 
-                    <p>{{question.question}}</p>
+            <div class="w3-container w3-padding w3-round-large w3-border w3-text-dark-grey w3-margin-top">
+              <div class="w3-text-black"> 
+                    <p class="w3-large">Q. {{question.question}}</p>
+                    <span class="w3-small w3-text-green w3-left">Marks : {{question.marks }}</span>   
+                    <span class="w3-small w3-text-red w3-right">Negative : -{{question.negative}}</span>
               </div>
-              <span class="w3-small w3-text-green w3-left">Marks : {{question.marks }}</span>   
-              <span class="w3-small w3-text-red w3-right">Negative : -{{question.negative}}</span>
-              <hr>
-              <div class="w3-container">
+              <br>
               <label>
                     <input type="radio" name="{{question.id}}" value="{{question.option1}}" required>
                     <span>{{question.option1}}</span>
@@ -36,7 +35,6 @@
                     <input type="radio" name="{{question.id}}" value="{{question.option4}}">
                     <span>{{question.option4}}</span>
               </label>
-              </div>
               <br>
             </div>
         
@@ -46,13 +44,13 @@
           </form>
 </div>
 
-<div class="w3-container w3-half w3-padding">
+<div class="w3-container w3-half">
 
       <img style="width: 100%;" src="https://st4.depositphotos.com/14695324/26264/v/950/depositphotos_262649380-stock-illustration-podium-victory-champion-vector-illustration.jpg" alt="">
 
       {% if reports %}
 
-    <table class="w3-table-all w3-margin-top w3-text-indigo">
+    <table class="w3-table-all w3-margin-top w3-text-dark-grey">
       <caption class="w3-centre w3-white">LeaderBoard</caption>
       <tr>
         <th class="w3-indigo">Participant</th>
@@ -61,7 +59,7 @@
       {% for report in reports %}
       <tr>
         <td><i class="material-icons">assignment</i>{{report.student}}</td>
-        <td style="color:black">{{report.score}}</td>
+        <td>{{report.score}}</td>
       </tr>
       {% endfor %}
     </table>
@@ -77,8 +75,6 @@
 
 <h1 class="w3-panel w3-leftbar w3-white w3-text-red"><i class="material-icons md-72">build</i>
 Ask Examiner to set question</h1>
-
-
 
 {% endif %}
 

@@ -63,6 +63,7 @@
         width: 50px;
         height: 50px;
         border-radius: 50%;
+        z-index: 60px;
     }
 
     .sidenav {
@@ -75,7 +76,7 @@
       background-color: #ffffff;
       overflow-x: hidden;
       transition: 0.5s;
-      padding-top: 90px;
+      padding-top: 70px;
     }
 
     .sidenav a {
@@ -118,11 +119,16 @@
     <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block"> Problemset</a>
   </div>
 
-  <div id="main" class="w3-container w3-top w3-padding" style="max-width: 960px; margin: auto;">
+  <div id="main" class="w3-top w3-padding w3-container w3-hide-small" style="max-width: 960px; margin: auto;">
     <div class="w3-bar w3-centre w3-large w3-round w3-text-white w3-white w3-border">
       <a href="{% url 'problemset:problemset' %}"><img style="height:48px; width:230px; padding-left:6px" alt="Codeforces" title="Codeforces" src="https://codeforces.org/s/83061/images/codeforces-logo-with-telegram.png"/></a>
       <span class="w3-bar-item w3-text-dark-grey w3-right" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
     </div>
+  </div>
+
+  <div class="w3-top w3-bar w3-white w3-hide-large w3-hide-medium">
+      <img class="w3-bar-item w3-left" style="width: auto; height: 60px;" alt="Codeforces" src="https://codeforces.org/s/83061/images/codeforces-logo-with-telegram.png"/>
+      <span class="w3-bar-item w3-text-dark-grey w3-right" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
   </div>
 
   <div class="w3-container w3-bottom w3-padding">

@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link rel="icon" href="{% static 'img/speedo-dark.png' %}">
+<link rel="icon" href="{% static 'img/theuniteddark.jpg' %}">
 
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -17,13 +17,40 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 #main {margin-left: 120px}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
+
+.sidenav {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      right: 0;
+      background-color: #ffffff;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 70px;
+    }
+
+    .sidenav a {
+      text-decoration: none;
+      font-size: 25px;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav .closebtn {
+      position: absolute;
+      top: 50px;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
 </style>
 
 <body>
 <!-- Icon Bar (Sidebar - hidden on small screens) -->
 <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-text-dark-grey">
   <!-- Avatar image in top left corner -->
-  <img style="width: 100%;" src="{% static 'img/logo2.png' %}" alt="">
   <a href="#" class="w3-bar-item w3-button w3-padding-large">
     <i class="fa fa-home w3-xxlarge"></i>
     <p>HOME</p>
@@ -55,26 +82,34 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </nav>
 
 <!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-  <div class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-    <a href="#" class="w3-bar-item w3-button" style="width:25% !important">HOME</a>
-    <a href="#about" class="w3-bar-item w3-button" style="width:25% !important">ABOUT</a>
-    <a href="#projects" class="w3-bar-item w3-button" style="width:25% !important">PROJECTS</a>
-    <a href="#contact" class="w3-bar-item w3-button" style="width:25% !important">CONTACT</a>
-  </div>
+<div id="mySidenav" class="sidenav w3-text-dark-grey">
+  <a href="{% url 'home' %}" class="w3-button w3-block">Home</a>
+  <a href="{% url 'quiz:quiz_list' %}" class="w3-button w3-block">Quiz</a>
+  <a href="{% url 'explo:sans' %}" class="w3-button w3-block"> Explo</a>
+  <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block"> Problemset</a>
+  <form class="w3-button w3-block" action="{% url 'accounts:logout' %}" method="post">
+    {% csrf_token %}
+    <button class="w3-button w3-block" type="submit">Logout</button>
+  </form>
+</div>
+
+<div id="main" class="w3-top w3-bar w3-white w3-hide-large w3-hide-medium">
+    <img class="w3-bar-item w3-left" style="width: auto; height: 60px;" src="{% static 'img/theunitedlight.jpg' %}" alt="logo">
+    <span class="w3-bar-item w3-text-dark-grey w3-right" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 </div>
 
 <!-- Page Content -->
 <div class="w3-padding-large" id="main">
   <!-- Header/Home -->
-  <header class="w3-container w3-padding w3-center" id="home">
-    <h1 class="w3-jumbo"><span class="w3-hide-small">I'm</span> Sanskar <span class="w3-hide-small">Jain.</span></h1>
+  <header class="w3-container w3-padding-64 w3-center" id="home">
+    <h1 class="w3-jumbo w3-hide-small">Hi, I'm Sanskar Jain.</h1>
+    <h2 class="w3-hide-large w3-hide-medium">Hi, I'm Sanskar Jain.</h2>
     <p>UnderGrad at IIT BHU</p>
-    <img src="{% static 'img/sans4.png' %}" alt="boy" class="w3-image w3-margin-left">
+    <img src="{% static 'img/me.jpg' %}" alt="boy" class="w3-image w3-hover-greyscale">
   </header>
 
   <!-- About Section -->
-  <div class="w3-content w3-justify w3-text-grey w3-padding" id="about">
+  <div class="w3-content w3-justify w3-text-dark-grey w3-padding" id="about">
     <h2 class="w3-text-dark-grey">My Name</h2>
     <hr style="width:200px" class="w3-opacity">
     <p>Hi, this is <bold>Sanskar Jain</bold> aka sans. I'm persuaing my B.tech in Civil Engineering at IIT BHU. During this covid period, all of my academics shattered. 
@@ -93,22 +128,22 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <h3 class="w3-padding-16 w3-text-dark-grey">My Skills</h3>
     <p class="w3-wide">Flutter</p>
     <div class="w3-white w3-border">
-      <div class="w3-dark-grey" style="height:28px;width:75%"></div>
+      <div class="w3-indigo w3-opacity" style="height:28px;width:75%"></div>
     </div>
     <p class="w3-wide">Django</p>
     <div class="w3-white w3-border">
-      <div class="w3-dark-grey" style="height:28px;width:85%"></div>
+      <div class="w3-indigo w3-opacity" style="height:28px;width:85%"></div>
     </div>
     <p class="w3-wide">Competitive Programming</p>
     <div class="w3-white w3-border">
-      <div class="w3-dark-grey" style="height:28px;width:70%"></div>
+      <div class="w3-indigo w3-opacity" style="height:28px;width:70%"></div>
     </div>
     <p class="w3-wide">Chess</p>
     <div class="w3-white w3-border">
-      <div class="w3-dark-grey" style="height:28px;width:64%"></div>
+      <div class="w3-indigo w3-opacity" style="height:28px;width:64%"></div>
     </div><br>
     
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-light-grey">
+    <div class="w3-row w3-center w3-padding-16 w3-section w3-text-dark-grey w3-light-grey">
       <div class="w3-quarter w3-section">
         <span class="w3-xlarge">8.91</span><br>
         CPI
@@ -141,17 +176,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-half">
         <a href="{% url 'explo:sans' %}">
-        <img style="width: 100%;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg">
+        <img class="w3-hover-opacity" style="width: 100%;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg">
         </a>
         <a href="{% url 'problemset:problemset' %}">
-        <img src="data:image/png;base64,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" style="width:100%">
+        <img class="w3-hover-opacity" src="data:image/png;base64,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" style="width:100%">
         </a>
       </div>
 
       <div class="w3-half">
-        <img src="https://st2.depositphotos.com/1767252/5546/v/950/depositphotos_55462713-stock-illustration-hand-holding-black-smartphone-with.jpg" style="width:100%">
+        <img class="w3-hover-opacity" src="https://st2.depositphotos.com/1767252/5546/v/950/depositphotos_55462713-stock-illustration-hand-holding-black-smartphone-with.jpg" style="width:100%">
         <a href="{% url 'quiz:quiz_list' %}">
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBxswOZsJVXHo3DNxXQc7G8wJ8mIKYjlBig&usqp=CAU" style="width: 100%">
+          <img class="w3-hover-opacity" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBxswOZsJVXHo3DNxXQc7G8wJ8mIKYjlBig&usqp=CAU" style="width: 100%">
         </a>
       </div>
     <!-- End photo grid -->
@@ -174,7 +209,7 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
       {% csrf_token %}
       <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="feedback"></p>
       <p>
-        <button class="w3-button w3-text-dark-grey w3-border w3-padding-large" type="submit">
+        <button class="w3-button w3-border w3-padding-large" type="submit">
           <i class="fa fa-paper-plane"></i> SEND MESSAGE
         </button>
       </p>
@@ -195,16 +230,17 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
         <input type="hidden" name="next" value="{{ request.GET.next }}">
         {% endif %}
         <input type="hidden" name="login" value="login">
-        <input class="w3-button w3-border w3-grey w3-block w3-section w3-ripple w3-padding" type="submit" value="Login">
+        <input class="w3-button w3-round-large w3-border w3-dark-grey w3-block w3-section w3-ripple w3-padding" type="submit" value="Login">
     </form>
 
-    <form class="w3-container w3-border w3-text-dark-grey w3-margin" action="/accounts/signup/" method="post">
+    <form class="w3-container w3-border w3-text-dark-grey w3-margin" action="{% url 'home' %}" method="post">
       <div class="w3-container">
       <h2>Sign up</h2>
     </div>
       {% csrf_token %}
-        {{ signup_form }}
-        <input class="w3-button w3-block w3-section w3-grey w3-ripple w3-padding" type="submit" value="Signup">
+        {{ signup_form.as_p }}
+        <input type="hidden" name="signup" value="signup">
+        <input class="w3-button w3-round-large w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit" value="Signup">
     </form>
   </div>
   
@@ -218,6 +254,18 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 
 <!-- END PAGE CONTENT -->
 </div>
+
+<script>
+  function openNav() {
+    if(document.getElementById("mySidenav").style.width == ""){
+      document.getElementById("mySidenav").style.width = "200px";
+      document.getElementById("main").style.marginRight = "200px";
+    }else{
+      document.getElementById("mySidenav").style.width = "";
+      document.getElementById("main").style.marginRight= "0";
+    }
+  }
+  </script>
 
 </body>
 </html>

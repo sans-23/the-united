@@ -18,6 +18,7 @@ def home(request):
         
         if 'signup' in request.POST:
             signup_form = UserCreationForm(request.POST)
+            print('debugging')
             if signup_form.is_valid():
                 user = signup_form.save()
                 login(request, user)
@@ -29,6 +30,7 @@ def home(request):
             new_feedback = Feedback(feedback=feedback, user=request.user)
             new_feedback.save()
             return redirect('home')
+        print('error')
         signup_form = UserCreationForm()
         login_form = AuthenticationForm()
     else:

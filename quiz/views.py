@@ -35,7 +35,7 @@ def response_page(request, slug, userid):
     quiz = Quiz.objects.filter(slug=slug)[0]
     user = User.objects.filter(id=userid)[0]
     response = Response.objects.filter(quiz=quiz, student=user)
-    return render(request, 'quiz/records.html', {'response' : response})
+    return render(request, 'quiz/records.html', {'response' : response, 'student':user})
 
 
 @login_required(login_url='/')

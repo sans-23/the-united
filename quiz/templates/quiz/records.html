@@ -1,12 +1,10 @@
 {% extends 'quiz/base.html' %}
 
 {% block content %}
-{% if request.user.profile.is_pro %}
-<h1 class="w3-padding-32 w3-white w3-circle w3-text-blue w3-center" style="font-family:cursive">Responses</h1>
 
-<div class="w3-container">
-<table class="w3-table-all w3-card-4 w3-text-blue" style="color:black">
-  <caption class="w3-card w3-centre w3-white">Response-sheet</caption>
+<div class="w3-container w3-padding">
+<table class="w3-table-all w3-border w3-text-indigo" style="color:black">
+  <caption class="w3-centre w3-white">Response-sheet ({{student}})</caption>
   <tr>
     <th>QUESTION</th>
     <th>RESPONSE</th>
@@ -25,16 +23,5 @@
   {% endfor %}
 </table>
 </div>
-
-{% else %}
-<div class="w3-container w3-light-grey">
-  <h1 class="w3-padding-32 w3-red w3-card w3-text-white w3-center" style="font-family:cursive">You are not a pro user</h1>
-  <p class="w3-panel w3-pale-red w3-leftbar w3-border-red">Send your request in feedback section to become a pro user
-    and get responses of all your participants. It may take time to process the request.</p>
-</div>
-
-{% endif %}
-
-<a href="{% url 'quiz:quiz_list' %}">Back to main page</a>
 
 {% endblock %}
