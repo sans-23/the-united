@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
 
+    path('api-auth/', include('rest_framework.urls')),
     path('', home, name='home'),
     path('blog/entry/', noblog, name='noblog'),
     re_path(r'^blog/entry/(?P<pg>\d+)/$', blog, name='blogs'),
