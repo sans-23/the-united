@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-$45&l=@5%@(5t7_i%^@*n%*1mg8)oh=xfl!hh6$(&7f8el0xrn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cfproblemset.pythonanywhere.com']
 
 
 # Application definition
@@ -112,7 +112,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '/projects/united/static'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
@@ -122,3 +121,8 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = '/home/cfproblemset/united/media'
+MEDIA_URL = '/media/'
+STATIC_ROOT = '/home/cfproblemset/united/static'
+STATIC_URL = '/static/'

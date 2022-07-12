@@ -18,6 +18,10 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 /* Remove margins from "page content" on small screens */
 @media only screen and (max-width: 600px) {#main {margin-left: 0}}
 
+body{
+    background-color:#14171A;
+}
+
 .sidenav {
       height: 100%;
       width: 0;
@@ -48,41 +52,9 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
 </style>
 
 <body>
-<!-- Icon Bar (Sidebar - hidden on small screens) -->
-<nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center w3-text-dark-grey">
-  <!-- Avatar image in top left corner -->
-  <a href="#" class="w3-bar-item w3-button w3-padding-large">
-    <i class="fa fa-home w3-xxlarge"></i>
-    <p>HOME</p>
-  </a>
-  <a href="#about" class="w3-bar-item w3-button w3-padding-large w3-hover-grey">
-    <i class="fa fa-user w3-xxlarge"></i>
-    <p>ABOUT</p>
-  </a>
-  <a href="#projects" class="w3-bar-item w3-button w3-padding-large w3-hover-grey">
-    <i class="fa fa-eye w3-xxlarge"></i>
-    <p>PROJECTS</p>
-  </a>
-  <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hover-grey">
-    <i class="fa fa-envelope w3-xxlarge"></i>
-    <p>CONTACT</p>
-  </a>
-  {% if user.is_authenticated %}
-  <form class="w3-bar-item w3-button" action="{% url 'accounts:logout' %}" method="post">
-    {% csrf_token %}
-    <button class="w3-button" type="submit"><i class="fa fa-sign-in w3-xxlarge w3-container"></i> <br> LOGOUT</button>
-  </form>
-
-  {% else %}
-  <a href="#authenticate" class="w3-bar-item w3-button w3-padding-large w3-hover-grey">
-    <i class="fa fa-sign-in w3-xxlarge"></i>
-    <p>LOGIN</p>
-  </a>
-  {% endif %}
-</nav>
 
 <!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div id="mySidenav" class="sidenav w3-text-dark-grey">
+<div id="mySidenav" class="sidenav w3-text-grey">
   <a href="{% url 'home' %}" class="w3-button w3-block">Home</a>
   <a href="{% url 'quiz:quiz_list' %}" class="w3-button w3-block">Quiz</a>
   <a href="{% url 'explo:sans' %}" class="w3-button w3-block"> Explo</a>
@@ -98,153 +70,64 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <span class="w3-bar-item w3-text-dark-grey w3-right" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
 </div>
 
-<!-- Page Content -->
-<div class="w3-padding-large" id="main">
-  <!-- Header/Home -->
-  <header class="w3-container w3-padding-64 w3-center" id="home">
-    <h1 class="w3-jumbo w3-hide-small">Hi, I'm Sanskar Jain.</h1>
-    <h2 class="w3-hide-large w3-hide-medium">Hi, I'm Sanskar Jain.</h2>
-    <p>UnderGrad at IIT BHU</p>
-    <img src="{% static 'img/me.jpg' %}" alt="boy" class="w3-image w3-hover-greyscale">
-  </header>
-
-  <!-- About Section -->
-  <div class="w3-content w3-justify w3-text-dark-grey w3-padding" id="about">
-    <h2 class="w3-text-dark-grey">My Name</h2>
-    <hr style="width:200px" class="w3-opacity">
-    <p>Hi, this is <bold>Sanskar Jain</bold> aka sans. I'm persuaing my B.tech in Civil Engineering at IIT BHU. During this covid period, all of my academics shattered. 
-      So, I decided to learn something that can be learnt during lockdown. Guess what!? I decided to become Spiderman (Hell ya, Web developer) , and I started loving it so much that 
-      there is No Way Home (civil) for me.
-    </p>
-
-    <p>
-      I was also interested in App Development. So, I started learning FLUTTER. To integrate web and app together I learnt REST APIs.
-      Imma telling you DJANGO REST FRAMEWORK is too much fun.
-    </p>
-
-    <p>
-      So I finally told myself to not to get depressed in covid situation and wished myself <strong>HAPPY DEBUGGING!!</strong>
-    </p>
-    <h3 class="w3-padding-16 w3-text-dark-grey">My Skills</h3>
-    <p class="w3-wide">Flutter</p>
-    <div class="w3-white w3-border">
-      <div class="w3-indigo w3-opacity" style="height:28px;width:75%"></div>
-    </div>
-    <p class="w3-wide">Django</p>
-    <div class="w3-white w3-border">
-      <div class="w3-indigo w3-opacity" style="height:28px;width:85%"></div>
-    </div>
-    <p class="w3-wide">Competitive Programming</p>
-    <div class="w3-white w3-border">
-      <div class="w3-indigo w3-opacity" style="height:28px;width:70%"></div>
-    </div>
-    <p class="w3-wide">Chess</p>
-    <div class="w3-white w3-border">
-      <div class="w3-indigo w3-opacity" style="height:28px;width:64%"></div>
-    </div><br>
-    
-    <div class="w3-row w3-center w3-padding-16 w3-section w3-text-dark-grey w3-light-grey">
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">8.91</span><br>
-        CPI
+<div>
+  <div class="w3-half">
+    <h2 class="w3-text-white w3-center">My Projects</h2>
+    <br>
+    <div>
+      <div class="w3-half" style="width: 330px">
+        <a href="{% url 'explo:sans' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.XYbEaZF3-qRmSY8PpPqbhAHaE8%26pid%3DApi&f=1"></a>
+        <a href="{% url 'problemset:problemset' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.explicit.bing.net%2Fth%3Fid%3DOIP.jMLSvZ0rhLV7YuZRBrruyQHaD4%26pid%3DApi&f=1"></a>
       </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">4</span><br>
-        Django Projects
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">2</span><br>
-        Flutter Projects
-      </div>
-      <div class="w3-quarter w3-section">
-        <span class="w3-xlarge">1152</span><br>
-        Codeforces Rating
+      <div class="w3-half" style="width: 330px">
+        <a href="{% url 'problemset:problemset' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.biUEsX4dB7ObfFTxvdprMwHaE7%26pid%3DApi&f=1"></a>
+        <a href="{% url 'quiz:quiz_list' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ea99aIBs_QQSITPRoMWZvwHaD4%26pid%3DApi&f=1"></a>
       </div>
     </div>
-
-    <button class="w3-button w3-border w3-text-dark-grey w3-padding-large w3-section">
-      <i class="fa fa-download"></i> Download Resume
-    </button>
-  </div>
-  
-  <!-- Portfolio Section -->
-  <div class="w3-padding-64 w3-content" id="projects">
-    <h2 class="w3-text-dark-grey">My Projects</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <!-- Grid for photos -->
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-half">
-        <a href="{% url 'explo:sans' %}">
-        <img class="w3-hover-opacity" style="width: 100%;" src="https://st.depositphotos.com/33899804/51815/v/450/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg, https://st.depositphotos.com/33899804/51815/v/600/depositphotos_518156760-stock-illustration-soil-science-abstract-concept-vector.jpg">
-        </a>
-        <a href="{% url 'problemset:problemset' %}">
-        <img class="w3-hover-opacity" src="data:image/png;base64,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" style="width:100%">
-        </a>
-      </div>
-
-      <div class="w3-half">
-        <img class="w3-hover-opacity" src="https://st2.depositphotos.com/1767252/5546/v/950/depositphotos_55462713-stock-illustration-hand-holding-black-smartphone-with.jpg" style="width:100%">
-        <a href="{% url 'quiz:quiz_list' %}">
-          <img class="w3-hover-opacity" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtBxswOZsJVXHo3DNxXQc7G8wJ8mIKYjlBig&usqp=CAU" style="width: 100%">
-        </a>
-      </div>
-    <!-- End photo grid -->
-    </div>
-  <!-- End Portfolio Section -->
   </div>
 
-  <!-- Contact Section -->
-  <div class="w3-padding-64 w3-content w3-text-grey" id="contact">
-    <h2 class="w3-text-dark-grey">Contact Me</h2>
-    <hr style="width:200px" class="w3-opacity">
-
-    <div class="w3-section">
-      <p><i class="fa fa-map-marker fa-fw w3-text-dark-grey w3-xxlarge w3-margin-right"></i> Varanasi, India</p>
-      <p><i class="fa fa-envelope fa-fw w3-text-dark-grey w3-xxlarge w3-margin-right"> </i> sanskar.jain@tutanota.com</p>
-    </div><br>
-    <p>Let's get in touch. Send me a message:</p>
-
-    <form action="{% url 'home' %}" method="post">
-      {% csrf_token %}
-      <p><input class="w3-input w3-padding-16" type="text" placeholder="Message" required name="feedback"></p>
-      <p>
-        <button class="w3-button w3-border w3-padding-large" type="submit">
-          <i class="fa fa-paper-plane"></i> SEND MESSAGE
-        </button>
-      </p>
-    </form>
-  <!-- End Contact Section -->
-  </div>
-
-  <div class="w3-padding-64 w3-content w3-text-grey" id="authenticate">
-    <form class="w3-container w3-border w3-text-dark-grey w3-margin" action="{% url 'home' %}" method="post">
-      <div class="w3-container">
-      <h2>Log In</h2>
+  <div class="w3-half w3-text-white">
+    <div class="w3-half">
+        <img src="{% static 'img/me.jpg' %}" alt="boy" class="w3-image w3-greyscale">
+        <h2>Hi, I'm Sanskar Jain.</h2>
     </div>
-    
-      {% csrf_token %}
-        {{ login_form.as_p }}
-    
-        {% if request.GET.next %}
-        <input type="hidden" name="next" value="{{ request.GET.next }}">
+    <div class="w3-half">
+        {% if user.is_authenticated %}
+            <form class="w3-bar-item w3-button" action="{% url 'accounts:logout' %}" method="post">
+            {% csrf_token %}
+            <button class="w3-button" type="submit"><i class="fa fa-sign-in w3-xxlarge w3-container"></i> <br> LOGOUT</button>
+            </form>
+
+        {% else %}
+            <form class="w3-container w3-border w3-text-white w3-margin" action="{% url 'home' %}" method="post">
+              <div class="w3-container">
+              <h2>Log In</h2>
+            </div>
+
+              {% csrf_token %}
+                {{ login_form.as_p }}
+
+                {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+                {% endif %}
+                <input type="hidden" name="login" value="login">
+                <input class="w3-button w3-round-large w3-border w3-dark-grey w3-block w3-section w3-ripple w3-padding" type="submit" value="Login">
+            </form>
+
+            <form class="w3-container w3-border w3-text-white w3-margin" action="{% url 'home' %}" method="post">
+              <div class="w3-container">
+              <h2>Sign up</h2>
+            </div>
+              {% csrf_token %}
+                {{ signup_form.as_p }}
+                <input type="hidden" name="signup" value="signup">
+                <input class="w3-button w3-round-large w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit" value="Signup">
+            </form>
         {% endif %}
-        <input type="hidden" name="login" value="login">
-        <input class="w3-button w3-round-large w3-border w3-dark-grey w3-block w3-section w3-ripple w3-padding" type="submit" value="Login">
-    </form>
-
-    <form class="w3-container w3-border w3-text-dark-grey w3-margin" action="{% url 'home' %}" method="post">
-      <div class="w3-container">
-      <h2>Sign up</h2>
     </div>
-      {% csrf_token %}
-        {{ signup_form.as_p }}
-        <input type="hidden" name="signup" value="signup">
-        <input class="w3-button w3-round-large w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit" value="Signup">
-    </form>
   </div>
-  
-  <footer class="w3-content w3-padding-64 w3-text-dark-grey w3-xlarge">
+
+  <footer class="w3-text-grey w3-xlarge">
     <i class="fa fa-facebook-official w3-hover-opacity"></i>
     <i class="fa fa-instagram w3-hover-opacity"></i>
     <i class="fa fa-twitter w3-hover-opacity"></i>
@@ -252,7 +135,6 @@ body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
     <a href="https://github.com/sans-23"><i class="fa fa-github w3-hover-opacity"></i></a>
   </footer>
 
-<!-- END PAGE CONTENT -->
 </div>
 
 <script>
