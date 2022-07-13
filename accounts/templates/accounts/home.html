@@ -1,153 +1,206 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-<title>Home</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<link rel="icon" href="{% static 'img/theuniteddark.jpg' %}">
-
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
-body, h1,h2,h3,h4,h5,h6 {font-family: "Montserrat", sans-serif}
-.w3-row-padding img {margin-bottom: 12px}
-.w3-sidebar {width: 120px;}
-#main {margin-left: 120px}
-/* Remove margins from "page content" on small screens */
-@media only screen and (max-width: 600px) {#main {margin-left: 0}}
-
-body{
-    background-color:#14171A;
-}
-
-.sidenav {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      background-color: #ffffff;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 70px;
-    }
-
-    .sidenav a {
-      text-decoration: none;
-      font-size: 25px;
-      display: block;
-      transition: 0.3s;
-    }
-
-    .sidenav .closebtn {
-      position: absolute;
-      top: 50px;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-</style>
-
-<body>
-
-<!-- Navbar on small screens (Hidden on medium and large screens) -->
-<div id="mySidenav" class="sidenav w3-text-grey">
-  <a href="{% url 'home' %}" class="w3-button w3-block">Home</a>
-  <a href="{% url 'quiz:quiz_list' %}" class="w3-button w3-block">Quiz</a>
-  <a href="{% url 'explo:sans' %}" class="w3-button w3-block"> Explo</a>
-  <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block"> Problemset</a>
-  <form class="w3-button w3-block" action="{% url 'accounts:logout' %}" method="post">
-    {% csrf_token %}
-    <button class="w3-button w3-block" type="submit">Logout</button>
-  </form>
-</div>
-
-<div id="main" class="w3-top w3-bar w3-white w3-hide-large w3-hide-medium">
-    <img class="w3-bar-item w3-left" style="width: auto; height: 60px;" src="{% static 'img/theunitedlight.jpg' %}" alt="logo">
-    <span class="w3-bar-item w3-text-dark-grey w3-right" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-</div>
-
-<div>
-  <div class="w3-half">
-    <h2 class="w3-text-white w3-center">My Projects</h2>
-    <br>
-    <div>
-      <div class="w3-half" style="width: 330px">
-        <a href="{% url 'explo:sans' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.XYbEaZF3-qRmSY8PpPqbhAHaE8%26pid%3DApi&f=1"></a>
-        <a href="{% url 'problemset:problemset' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.explicit.bing.net%2Fth%3Fid%3DOIP.jMLSvZ0rhLV7YuZRBrruyQHaD4%26pid%3DApi&f=1"></a>
-      </div>
-      <div class="w3-half" style="width: 330px">
-        <a href="{% url 'problemset:problemset' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.biUEsX4dB7ObfFTxvdprMwHaE7%26pid%3DApi&f=1"></a>
-        <a href="{% url 'quiz:quiz_list' %}"><img class="w3-hover-opacity" style="width: 100%;" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ea99aIBs_QQSITPRoMWZvwHaD4%26pid%3DApi&f=1"></a>
-      </div>
+  <title>Home</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
+    <link rel="icon" href="{% static 'img/qrious.png' %}" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <div id="mySidenav" class="sidenav">
+      <a href="{% url 'home' %}" class="w3-button w3-block">Home</a>
+      <a href="{% url 'quiz:quiz_list' %}" class="w3-button w3-block">Quiz</a>
+      <a href="{% url 'explo:sans' %}" class="w3-button w3-block"> Explo</a>
+      <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block">
+        Problemset</a
+      >
+      <form
+        class="w3-button w3-block"
+        action="{% url 'accounts:logout' %}"
+        method="post"
+      >
+        {% csrf_token %}
+        <button class="w3-button w3-block" type="submit">Logout</button>
+      </form>
     </div>
-  </div>
 
-  <div class="w3-half w3-text-white">
-    <div class="w3-half">
-        <img src="{% static 'img/me.jpg' %}" alt="boy" class="w3-image w3-greyscale">
-        <h2>Hi, I'm Sanskar Jain.</h2>
-    </div>
-    <div class="w3-half">
+    <nav id="main" class="w3-top w3-bar">
+      <img
+        class="w3-bar-item w3-left"
+        style="width: auto; height: 60px"
+        src="{% static 'img/qrious.png' %}"
+        alt="logo"
+      />
+      <div
+        class="w3-bar-item w3-right"
+        style="font-size: 30px; cursor: pointer"
+        onclick="openNav()"
+      >
+        &#9776;
+      </div>
+    </nav>
+    <div class="wrapper">
+      <div class="authentication" id="auth">
+        <img
+          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="w3-image"
+          alt="Phone image"
+          style="max-height: 300px"
+        />
         {% if user.is_authenticated %}
-            <form class="w3-bar-item w3-button" action="{% url 'accounts:logout' %}" method="post">
-            {% csrf_token %}
-            <button class="w3-button" type="submit"><i class="fa fa-sign-in w3-xxlarge w3-container"></i> <br> LOGOUT</button>
-            </form>
+        <form
+          class="w3-margin w3-center"
+          action="{% url 'accounts:logout' %}"
+          method="post"
+        >
+          {% csrf_token %}
+          <button class="w3-button w3-blue w3-round" type="submit">
+            LOGOUT
+          </button>
+          <p>
+            Explore
+            <a href="javascript:void()" onclick="projects()">projects</a>
+          </p>
+        </form>
 
         {% else %}
-            <form class="w3-container w3-border w3-text-white w3-margin" action="{% url 'home' %}" method="post">
-              <div class="w3-container">
-              <h2>Log In</h2>
-            </div>
+        <form
+          id="login"
+          class="w3-container w3-text-white w3-center w3-padding"
+          action="{% url 'home' %}"
+          method="post"
+        >
+          <h2>Log In</h2>
 
-              {% csrf_token %}
-                {{ login_form.as_p }}
+          {% csrf_token %} {{ login_form.as_p }} {% if request.GET.next %}
+          <input type="hidden" name="next" value="{{ request.GET.next }}" />
+          {% endif %}
+          <input type="hidden" name="login" value="login" />
+          <input
+            class="w3-button w3-round-large w3-blue w3-block w3-padding"
+            type="submit"
+            value="Login"
+          />
+          <p>
+            Haven't registered yet?
+            <a href="javascript:void()" onclick="signup()">Register</a></br>
+            Explore
+            <a href="javascript:void()" onclick="projects()">projects</a>
+          </p>
+        </form>
 
-                {% if request.GET.next %}
-                <input type="hidden" name="next" value="{{ request.GET.next }}">
-                {% endif %}
-                <input type="hidden" name="login" value="login">
-                <input class="w3-button w3-round-large w3-border w3-dark-grey w3-block w3-section w3-ripple w3-padding" type="submit" value="Login">
-            </form>
-
-            <form class="w3-container w3-border w3-text-white w3-margin" action="{% url 'home' %}" method="post">
-              <div class="w3-container">
-              <h2>Sign up</h2>
-            </div>
-              {% csrf_token %}
-                {{ signup_form.as_p }}
-                <input type="hidden" name="signup" value="signup">
-                <input class="w3-button w3-round-large w3-block w3-section w3-dark-grey w3-ripple w3-padding" type="submit" value="Signup">
-            </form>
+        <form
+          id="signup"
+          style="display: none"
+          class="w3-container w3-text-white w3-center w3-padding"
+          action="{% url 'home' %}"
+          method="post"
+        >
+          <h2>Sign up</h2>
+          {% csrf_token %} {{ signup_form.as_p }}
+          <input type="hidden" name="signup" value="signup" />
+          <input
+            class="w3-button w3-round-large w3-blue w3-block w3-padding"
+            type="submit"
+            value="SignUp"
+          />
+          <p>
+            Already registered?
+            <a href="javascript:void()" onclick="login()">Login</a></br>
+            Explore
+            <a href="javascript:void()" onclick="projects()">projects</a>
+          </p>
+        </form>
         {% endif %}
+      </div>
+      <div class="projects-section" id="projects">
+        <h2 class="w3-text-white w3-center">My Projects</h2>
+        <br />
+        <div class="projects">
+            <a href="{% url 'explo:sans' %}"
+              ><img
+                class="w3-hover-opacity"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.XYbEaZF3-qRmSY8PpPqbhAHaE8%26pid%3DApi&f=1"
+            /></a>
+            <a href="{% url 'problemset:problemset' %}"
+              ><img
+                class="w3-hover-opacity"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.explicit.bing.net%2Fth%3Fid%3DOIP.jMLSvZ0rhLV7YuZRBrruyQHaD4%26pid%3DApi&f=1"
+            /></a>
+            <a href="{% url 'problemset:problemset' %}"
+              ><img
+                class="w3-hover-opacity"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.biUEsX4dB7ObfFTxvdprMwHaE7%26pid%3DApi&f=1"
+            /></a>
+            <a href="{% url 'quiz:quiz_list' %}"
+              ><img
+                class="w3-hover-opacity"
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ea99aIBs_QQSITPRoMWZvwHaD4%26pid%3DApi&f=1"
+            /></a>
+        </div>
+        {% if not user.is_authenticated %}
+        <p>To visit <a href="javascript:void()" onclick="showAuth()"> login </a></p>
+        {%endif%}
+      </div>
+      <div
+        class="w3-bottom w3-center w3-padding-large w3-margin w3-text-grey w3-xlarge"
+      >
+        <i class="fa fa-facebook-official w3-hover-opacity"></i>
+        <i class="fa fa-instagram w3-hover-opacity"></i>
+        <i class="fa fa-twitter w3-hover-opacity"></i>
+        <a href="https://www.linkedin.com/in/sanskar-jain-7285a91b3/"
+          ><i class="fa fa-linkedin w3-hover-opacity"></i
+        ></a>
+        <a href="https://github.com/sans-23"
+          ><i class="fa fa-github w3-hover-opacity"></i
+        ></a>
+      </div>
     </div>
-  </div>
-
-  <footer class="w3-text-grey w3-xlarge">
-    <i class="fa fa-facebook-official w3-hover-opacity"></i>
-    <i class="fa fa-instagram w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
-    <a href="https://www.linkedin.com/in/sanskar-jain-7285a91b3/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
-    <a href="https://github.com/sans-23"><i class="fa fa-github w3-hover-opacity"></i></a>
-  </footer>
-
-</div>
-
-<script>
-  function openNav() {
-    if(document.getElementById("mySidenav").style.width == ""){
-      document.getElementById("mySidenav").style.width = "200px";
-      document.getElementById("main").style.marginRight = "200px";
-    }else{
-      document.getElementById("mySidenav").style.width = "";
-      document.getElementById("main").style.marginRight= "0";
-    }
-  }
-  </script>
-
-</body>
+    <script>
+      function openNav() {
+        if (document.getElementById("mySidenav").style.width == "") {
+          document.getElementById("mySidenav").style.width = "200px";
+          document.getElementById("main").style.marginRight = "200px";
+        } else {
+          document.getElementById("mySidenav").style.width = "";
+          document.getElementById("main").style.marginRight = "0";
+        }
+      }
+      function login() {
+        document.getElementById("login").style.display = "block";
+        document.getElementById("signup").style.display = "none";
+      }
+      function signup() {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("signup").style.display = "block";
+      }
+      function projects(){
+        document.getElementById("projects").style.display = "flex";
+        document.getElementById("auth").style.display = "none";
+      }
+      function showAuth(){
+        document.getElementById("projects").style.display = "none";
+        document.getElementById("auth").style.display = "block";
+      }
+    </script>
+  </body>
 </html>
