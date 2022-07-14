@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
+from .forms import QuestionForm
 
 @login_required(login_url='/')
 def quiz_list(request):
@@ -84,7 +85,7 @@ def exam_view(request, slug):
 
 class QuestionCreate(LoginRequiredMixin, CreateView):
     model = Question
-    fields = ['question', 'option1', 'option2', 'option3', 'option4', 'answer', 'marks', 'negative']
+    form_class = QuestionForm
     success_url = reverse_lazy('quiz:quiz_list')
 
     def get_context_data(self, **kwargs):
@@ -103,7 +104,7 @@ class QuestionCreate(LoginRequiredMixin, CreateView):
 
 class QuestionUpdate(LoginRequiredMixin, UpdateView):
     model = Question
-    fields = ['question', 'option1', 'option2', 'option3', 'option4', 'answer', 'marks', 'negative']
+    form_class = QuestionForm
     success_url = reverse_lazy('quiz:quiz_list')
     template_name_suffix= '_update_form'
 

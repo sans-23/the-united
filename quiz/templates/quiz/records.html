@@ -3,8 +3,8 @@
 {% block content %}
 
 <div class="w3-container w3-padding">
-<table class="w3-table-all w3-border w3-text-indigo" style="color:black">
-  <caption class="w3-centre w3-white">Response-sheet ({{student}})</caption>
+<table>
+  <caption class="w3-centre">Response-sheet ({{student}})</caption>
   <tr>
     <th>QUESTION</th>
     <th>RESPONSE</th>
@@ -12,12 +12,12 @@
   </tr>
   {% for res in response %}
   <tr>
-    <td style="color:black"><i class="material-icons">help</i>{{res.question}}</td>
-    <td style="color:black">{{res.answer}}</td>
+    <td>{{res.question}}</td>
+    <td>{{res.answer}}</td>
     {% if res.is_correct %}
-    <td style="color:green">Correct <span class="w3-badge w3-green">{{res.attempt}}</span></td>
+    <td>Correct <span class="w3-badge w3-green">{{res.attempt}}</span></td>
     {% else %}
-    <td style="color:red">Incorrect <span class="w3-badge w3-red">{{res.attempt}}</span></td>
+    <td>Incorrect <span class="w3-badge w3-red">{{res.attempt}}</span></td>
     {% endif %}
   </tr>
   {% endfor %}

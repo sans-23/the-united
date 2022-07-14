@@ -3,7 +3,6 @@
 
 {% if questions %}
 <div class="w3-half">
-      <img class="w3-padding" style="width: 100%;" src="https://t4.ftcdn.net/jpg/04/77/36/41/360_F_477364158_1Gsn4W1xy5VXwVcISTySu82v2mZC1gGI.webp">
       <form action="{% url 'quiz:exam' slug=slug%}" method="post">
 
             {% for question in questions %}
@@ -45,20 +44,17 @@
 </div>
 
 <div class="w3-container w3-half">
-
-      <img style="width: 100%;" src="https://st4.depositphotos.com/14695324/26264/v/950/depositphotos_262649380-stock-illustration-podium-victory-champion-vector-illustration.jpg" alt="">
-
       {% if reports %}
 
-    <table class="w3-table-all w3-margin-top w3-text-dark-grey">
-      <caption class="w3-centre w3-white">LeaderBoard</caption>
+    <table>
+      <caption class="w3-centre">LeaderBoard</caption>
       <tr>
-        <th class="w3-indigo">Participant</th>
-        <th class="w3-indigo">SCORE</th>
+        <th>Participant</th>
+        <th>SCORE</th>
       </tr>
       {% for report in reports %}
       <tr>
-        <td><i class="material-icons">assignment</i>{{report.student}}</td>
+        <td>{{report.student}}</td>
         <td>{{report.score}}</td>
       </tr>
       {% endfor %}

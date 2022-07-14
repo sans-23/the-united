@@ -2,108 +2,93 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8">
-    <title>QuizApp</title>
-    <script src="{% static 'js/base.js' %}"></script>
-    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
+    <link rel="icon" href="https://cdn.pixabay.com/photo/2016/12/17/15/50/logo-1913689_960_720.png" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
   </head>
-
-  <style>
-    a {text-decoration:none;}
-    .helptext, .helptext ul{margin: 0 auto 20px;color:#650d0d;font-size: 0.9em;display:block;}
-    .errorlist li{padding: 10px;list-style-type: none;border: 2px ridge #9040108a;color:#f80303;margin:10px 0;}
-    .errorlist{padding:0;}
-    
-    .sidenav {
-      height: 100%;
-      width: 0;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      right: 0;
-      background-color: #ffffff;
-      overflow-x: hidden;
-      transition: 0.5s;
-      padding-top: 70px;
-    }
-
-    .sidenav a {
-      text-decoration: none;
-      font-size: 25px;
-      display: block;
-      transition: 0.3s;
-    }
-
-    .sidenav .closebtn {
-      position: absolute;
-      top: 50px;
-      right: 25px;
-      font-size: 36px;
-      margin-left: 50px;
-    }
-
-  </style>
-<body style="max-width: 960px; margin: auto;">
-
-    <div class="w3-top w3-padding w3-container w3-hide-small" style="max-width: 960px; margin: auto;">
-      <div class="w3-bar w3-centre w3-large w3-indigo w3-round w3-border">
-        <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-light-grey"> <i class="material-icons">home</i>  Home</a>
-        <a href="{% url 'quiz:quiz_list' %}" class="w3-bar-item w3-button">Quiz</a>
-        <a href="{% url 'explo:sans' %}" class="w3-bar-item w3-button"> Explo</a>
-        <a href="{% url 'problemset:problemset' %}" class="w3-bar-item w3-button"> Problemset</a>
-        <form class="w3-right" action="{% url 'accounts:logout' %}" method="post">
-          {% csrf_token %}
-          <button class="w3-bar-item w3-button" type="submit">Logout</button>
-        </form>
+  <body>
+    <nav id="main" class="w3-bar">
+      <img
+        class="w3-bar-item w3-left"
+        style="width: auto; height: 60px"
+        src="https://cdn.pixabay.com/photo/2016/12/17/15/50/logo-1913689_960_720.png"
+        alt="logo"
+      />
+      <div
+        class="w3-bar-item w3-right"
+        style="font-size: 30px; cursor: pointer"
+        onclick="openNav()"
+      >
+        &#9776;
       </div>
-    </div>
-
-    <div id="mySidenav" class="sidenav w3-text-dark-grey">
+    </nav>
+    <div id="mySidenav" class="sidenav">
       <a href="{% url 'home' %}" class="w3-button w3-block">Home</a>
       <a href="{% url 'quiz:quiz_list' %}" class="w3-button w3-block">Quiz</a>
       <a href="{% url 'explo:sans' %}" class="w3-button w3-block"> Explo</a>
-      <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block"> Problemset</a>
-      <form class="w3-button w3-block" action="{% url 'accounts:logout' %}" method="post">
+      <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block">
+        Problemset</a
+      >
+      <form
+        class="w3-button w3-block"
+        action="{% url 'accounts:logout' %}"
+        method="post"
+      >
         {% csrf_token %}
         <button class="w3-button w3-block" type="submit">Logout</button>
       </form>
     </div>
-    
-    <div id="main" class="w3-top w3-bar w3-white w3-hide-large w3-hide-medium">
-        <img class="w3-bar-item w3-left" style="width: auto; height: 60px;" src="{% static 'img/theunitedlight.jpg' %}" alt="logo">
-        <span class="w3-bar-item w3-text-dark-grey w3-right" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+    <div class="app">
+      <div class="w3-container w3-center w3-padding">
+        {% block content %} {% endblock %}
+      </div>
     </div>
-
-    <div class="w3-container w3-padding-64">
-      {% block content %}
-      {% endblock %}
-
-      <hr>
-      <footer class="w3-content w3-padding-64 w3-text-dark-grey w3-xlarge w3-margin-left">
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <a href="https://www.linkedin.com/in/sanskar-jain-7285a91b3/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
-        <a href="https://github.com/sans-23"><i class="fa fa-github w3-hover-opacity"></i></a>
-      </footer>
-    </div>
-
-
+    <footer
+      class="w3-center w3-text-grey w3-xlarge"
+      style="background: none; bottom:0"
+    >
+      <i class="fa fa-facebook-official w3-hover-opacity"></i>
+      <i class="fa fa-instagram w3-hover-opacity"></i>
+      <i class="fa fa-twitter w3-hover-opacity"></i>
+      <a href="https://www.linkedin.com/in/sanskar-jain-7285a91b3/"
+        ><i class="fa fa-linkedin w3-hover-opacity"></i
+      ></a>
+      <a href="https://github.com/sans-23"
+        ><i class="fa fa-github w3-hover-opacity"></i
+      ></a>
+    </footer>
     <script>
       function openNav() {
-        if(document.getElementById("mySidenav").style.width == ""){
+        if (document.getElementById("mySidenav").style.width == "") {
           document.getElementById("mySidenav").style.width = "200px";
           document.getElementById("main").style.marginRight = "200px";
-        }else{
+        } else {
           document.getElementById("mySidenav").style.width = "";
-          document.getElementById("main").style.marginRight= "0";
+          document.getElementById("main").style.marginRight = "0";
         }
       }
-      </script>
-
+    </script>
   </body>
 </html>

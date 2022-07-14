@@ -2,14 +2,15 @@
 {% block content %}
 
 {% if request.user == quiz.author %}
-  <form class="w3-container w3-round-large w3-border w3-text-indigo w3-margin" action="" method="post">
-    <h2 class="w3-indigo w3-round w3-center">Adding to {{quiz}}</h3>
-    <hr>
+  <div class="modal-form">
+  <form class="w3-container w3-round-large w3-border w3-text-blue w3-margin" action="" method="post">
+    <h2 class="w3-blue w3-round w3-center">{{quiz}}</h3>
     {% csrf_token %}
     {{ form.as_p }}
-    <input class="w3-button w3-round w3-left w3-section w3-red w3-padding" type="submit" onclick=window.location="{% url 'quiz:quiz_list' %}" ; return false;" value="Cancel">
-    <input class="w3-button w3-round w3-right w3-section w3-indigo w3-padding" type="submit" value="Submit">
+    <input class="w3-button w3-round w3-left w3-section w3-red w3-padding" type="submit" onclick=window.location="{% url 'quiz:quiz_list' %}" ; return false; value="Cancel">
+    <input class="w3-button w3-round w3-right w3-section w3-blue w3-padding" type="submit" value="Submit">
   </form>
+</div>
 
 {% else %}
     <h1><i class="material-icons md-72">https</i>You are not allowed to add question to the quiz that doesn't belong to you.. </h1>
