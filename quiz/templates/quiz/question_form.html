@@ -4,16 +4,16 @@
 {% if request.user == quiz.author %}
   <div class="modal-form">
   <form class="w3-container w3-round-large w3-border w3-text-blue w3-margin" action="" method="post">
-    <h2 class="w3-blue w3-round w3-center">{{quiz}}</h3>
+    <h2 class="w3-text-light-grey w3-round w3-center">{{quiz}}</h3>
     {% csrf_token %}
     {{ form.as_p }}
-    <input class="w3-button w3-round w3-left w3-section w3-red w3-padding" type="submit" onclick=window.location="{% url 'quiz:quiz_list' %}" ; return false; value="Cancel">
-    <input class="w3-button w3-round w3-right w3-section w3-blue w3-padding" type="submit" value="Submit">
+    <input class="w3-button w3-round w3-left w3-section w3-deep-orange w3-padding" type="submit" onclick=window.location="{% url 'quiz:quiz_list' %}" ; return false; value="Cancel">
+    <input class="w3-button w3-round w3-right w3-section w3-blue w3-padding" type="submit" value="Create">
   </form>
 </div>
 
 {% else %}
-    <h1><i class="material-icons md-72">https</i>You are not allowed to add question to the quiz that doesn't belong to you.. </h1>
+    <h1>You are not authorised... </h1>
 {% endif %}
 
 {% endblock %}

@@ -1,16 +1,11 @@
 {% extends 'quiz/base.html' %}
-
 {% block content %}
 
 <div class="w3-container w3-half w3-padding-32">
-
-  <input class="w3-input w3-border w3-padding w3-round" type="text" placeholder="Search for quiz..." id="myInput" onkeyup="myFunction()">
+  <input class="w3-input w3-border w3-padding w3-round" type="text" placeholder="Search for quiz..." id="myInput" onkeyup="search()">
 </br>
   <table id="myTable">
-    <tr>
-      <th style="width:60%;">Quiz</th>
-      <th style="width:50%;">Examiner</th>
-    </tr>
+    <tr><th style="width:60%;">Quiz</th><th style="width:50%;">Examiner</th></tr>
     {% for quiz in quizes %}
     <tr>
       <td><a href="{% url 'quiz:exam' slug=quiz.slug %}">{{quiz.title}}</a></td>
@@ -29,46 +24,35 @@
   </form>
   <br><br><br><br>
 
-  <img style="width: 70%;" src="https://cdn.pixabay.com/photo/2017/05/09/13/33/laptop-2298286_640.png" alt="">
-
   {% if reports %}
-
+  <img style="width: 70%;" src="https://cdn.pixabay.com/photo/2017/05/09/13/33/laptop-2298286_640.png" alt="">
   <table>
     <caption class="w3-centre">Reports</caption>
-    <tr>
-      <th>QUIZ</th>
-      <th>SCORE</th>
-    </tr>
+    <tr><th>QUIZ</th><th>SCORE</th></tr>
     {% for report in reports %}
-    <tr>
-      <td>{{report.quiz}}</td>
-      <td>{{report.score}}</td>
-    </tr>
+    <tr><td>{{report.quiz}}</td><td>{{report.score}}</td></tr>
     {% endfor %}
   </table>
-
-  <img class="w3-padding" style="width: 50%;" src="https://cdn.pixabay.com/photo/2014/03/25/16/27/literature-297187__340.png" alt="">
-
+  <br>
   {% else %}
   <p></p>
   {% endif %}
 
+  <img class="w3-padding" style="width: 50%;" src="https://cdn.pixabay.com/photo/2014/03/25/16/27/literature-297187__340.png" alt="">
+
   <table>
-    <tr>
-      <th>MY QUIZ</th>
-      <th>RESULT</th>
-    </tr>
+    <tr><th>MY QUIZ</th><th>Participants</th></tr>
     {% for quiz in my_quizes %}
     <tr>
       <td><a href="{% url 'quiz:question_list' slug=quiz.slug %}">{{quiz.title}} </a></td>
-      <td><span class="w3-hide-small">Participants</span> <span>{{quiz.report_set.count}}</span></td>
+      <td><span class="w3-hide-small"></span> <span>{{quiz.report_set.count}}</span></td>
     </tr>
     {% endfor %}
   </table>
 </div>
 
 <script>
-function myFunction() {
+function search() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();

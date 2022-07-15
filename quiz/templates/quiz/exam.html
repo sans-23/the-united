@@ -4,53 +4,52 @@
 {% if questions %}
 <div class="w3-half">
       <form action="{% url 'quiz:exam' slug=slug%}" method="post">
-
             {% for question in questions %}
             {% csrf_token %}
-        
-            <div class="w3-container w3-padding w3-round-large w3-border w3-text-grey w3-margin-top">
+            <div class="w3-container w3-padding w3-round-large w3-border w3-text-white w3-margin-top">
               <div> 
-                    <p class="w3-large">Q. {{question.question}}</p>
+                    <b><p class="w3-large">Q. {{question.question}}</p></b>
                     <div style="display:flex; justify-content:space-between;">
-                      <span class="w3-small w3-text-green w3-left">Marks : {{question.marks }}</span>   
-                      <span class="w3-small w3-text-orange w3-right">Negative : {{question.negative}}</span>
+                      <span class="w3-small w3-text-green w3-left"><b>Marks : {{question.marks }}</b></span>   
+                      <span class="w3-small w3-text-deep-orange w3-right"><b>Negative : {{question.negative}}</b></span>
                     </div>
               </div>
               <hr>
+              
               <label>
                     <input type="radio" name="{{question.id}}" value="{{question.option1}}" required>
-                    <span>{{question.option1}}</span>
+                    <span><b>{{question.option1}}<b></span>
               </label><br>
         
               <label>
                     <input type="radio" name="{{question.id}}" value="{{question.option2}}">
-                    <span>{{question.option2}}</span>
+                    <span><b>{{question.option2}}<b></span>
               </label><br>
         
               <label>
                     <input type="radio" name="{{question.id}}" value="{{question.option3}}">
-                    <span>{{question.option3}}</span>
+                    <span><b>{{question.option3}}<b></span>
               </label><br>
         
               <label>
                     <input type="radio" name="{{question.id}}" value="{{question.option4}}">
-                    <span>{{question.option4}}</span>
+                    <span><b>{{question.option4}}<b></span>
               </label>
               <br>
             </div>
         
             {% endfor %}
         
-            <input class="w3-button w3-round w3-section w3-blue w3-padding" type="submit" value="Submit">
+            <input class="w3-button w3-round w3-section w3-blue w3-padding w3-block" type="submit" value="Submit">
           </form>
 </div>
 
 <div class="w3-container w3-half">
       {% if reports %}
       <div class="leaderboard" style="display:flex; align-items:center; justify-content:start">
-            <img class="w3-padding" style="width: 25%;" src="https://cdn.pixabay.com/photo/2022/06/10/11/54/win-7254378__340.png" alt="">
-            <p style="font-size:1.8em">Leaderboard</p>
-          </div>
+        <img class="w3-padding" style="width: 25%;" src="https://cdn.pixabay.com/photo/2022/06/10/11/54/win-7254378__340.png" alt="">
+        <p style="font-size:1.8em">Leaderboard</p>
+      </div>
 
     <table>
       <tr>
@@ -77,15 +76,10 @@
         <th>SCORE</th>
       </tr>
     </table>
-  
     {% endif %}
 </div>
 
 {% else %}
-
-<h1 class="w3-panel w3-center">
-Ask Examiner to set question</h1>
-
+<h1 class="w3-panel w3-center">Ask Examiner to set question</h1>
 {% endif %}
-
 {% endblock %}

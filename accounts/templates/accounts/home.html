@@ -5,169 +5,75 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'css/styles.css' %}"
-    />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}"/>
     <link rel="icon" href="https://cdn.pixabay.com/photo/2016/12/17/15/50/logo-1913689_960_720.png" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
   </head>
   <body>
-    <nav class="topnav w3-top" style="display:flex; justify-content:space-between; background-color:black; padding-top:8px">
-      <a href="{% url 'home' %}"><img
-        style="width: auto; height: 40px"
-        src="https://cdn.pixabay.com/photo/2016/12/17/15/50/logo-1913689_960_720.png"
-        alt="logo"
-      /></a>
-      <a href="javascript:void(0);" class="w3-right w3-xlarge" onclick="myFunction()">
-        <i class="fa fa-bars"></i>
-      </a>
+    <nav class="topnav w3-top">
+      <a href="{% url 'home' %}"><img style="width: auto; height: 40px" src="https://cdn.pixabay.com/photo/2016/12/17/15/50/logo-1913689_960_720.png" alt="logo"/></a>
+      <a href="javascript:void(0);" class="w3-right w3-xlarge" onclick="myFunction()"><i class="fa fa-bars"></i></a>
     </nav>
-    <div id="myLinks" style="display:none; margin-top:50px">
-      <a href="{% url 'quiz:quiz_list' %}" style="width:30%" class="w3-button">Quiz</a>
-      <a href="{% url 'explo:sans' %}" style="width:30%" class="w3-button"> Explo</a>
-      <a href="{% url 'problemset:problemset' %}" style="width:30%" class="w3-button">
-        CF-lite</a
-      >
+    <div id="myLinks">
+      <a href="{% url 'quiz:quiz_list' %}" style="width:33%" class="w3-button">Quiz</a>
+      <a href="{% url 'explo:sans' %}" style="width:33%" class="w3-button"> Explo</a>
+      <a href="{% url 'problemset:problemset' %}" style="width:33%" class="w3-button">CF-lite</a>
     </div>
-    <div class="wrapper w3-padding-64" style="overflow:auto">
+    <div class="wrapper w3-padding-64">
       <div class="authentication" id="auth">
-        <img
-          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
-          class="w3-image"
-          alt="Phone image"
-          style="max-height: 300px"
-        />
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="w3-image" alt="Phone image" style="max-height: 300px"/>
         {% if user.is_authenticated %}
-        <form
-          class="w3-margin w3-center"
-          action="{% url 'accounts:logout' %}"
-          method="post"
-        >
+        <form class="w3-margin w3-center" action="{% url 'accounts:logout' %}" method="post">
           {% csrf_token %}
-          <button class="w3-button w3-blue w3-round" type="submit">
-            LOGOUT
-          </button>
-          <p>
-            Explore
-            <a href="javascript:void()" onclick="projects()">projects</a>
-          </p>
+          <button class="w3-button w3-blue w3-round" type="submit">LOGOUT</button>
+          <p>Explore <a href="javascript:void()" onclick="projects()">projects</a></p>
         </form>
-
         {% else %}
-        <form
-          id="login"
-          class="w3-container w3-text-white w3-center w3-padding"
-          action="{% url 'home' %}"
-          method="post"
-        >
+        <form id="login" class="w3-container w3-text-white w3-center w3-padding" action="{% url 'home' %}" method="post">
           <h2>Log In</h2>
-
           {% csrf_token %} {{ login_form.as_p }} {% if request.GET.next %}
           <input type="hidden" name="next" value="{{ request.GET.next }}" />
           {% endif %}
           <input type="hidden" name="login" value="login" />
-          <input
-            class="w3-button w3-round-large w3-blue w3-block w3-padding"
-            type="submit"
-            value="Login"
-          />
-          <p>
-            Haven't registered yet?
-            <a href="javascript:void()" onclick="signup()">Register</a></br>
-            Explore
-            <a href="javascript:void()" onclick="projects()">projects</a>
-          </p>
+          <input class="w3-button w3-round-large w3-blue w3-block w3-padding" type="submit" value="Login"/>
+          <p>Haven't registered yet? <a href="javascript:void()" onclick="signup()">Register</a></br>Explore<a href="javascript:void()" onclick="projects()">projects</a></p>
         </form>
-
-        <form
-          id="signup"
-          style="display: none"
-          class="w3-container w3-text-white w3-center w3-padding"
-          action="{% url 'home' %}"
-          method="post"
-        >
+        <form id="signup" style="display: none" class="w3-container w3-text-white w3-center w3-padding" action="{% url 'home' %}" method="post">
           <h2>Sign up</h2>
           {% csrf_token %} {{ signup_form.as_p }}
           <input type="hidden" name="signup" value="signup" />
-          <input
-            class="w3-button w3-round-large w3-blue w3-block w3-padding"
-            type="submit"
-            value="SignUp"
-          />
-          <p>
-            Already registered?
-            <a href="javascript:void()" onclick="login()">Login</a></br>
-            Explore
-            <a href="javascript:void()" onclick="projects()">projects</a>
-          </p>
+          <input class="w3-button w3-round-large w3-blue w3-block w3-padding" type="submit" value="SignUp"/>
+          <p> Already registered? <a href="javascript:void()" onclick="login()">Login</a></br> Explore <a href="javascript:void()" onclick="projects()">projects</a></p>
         </form>
         {% endif %}
       </div>
       <div class="projects-section" id="projects">
-        <h2 class="w3-text-white w3-center">My Projects</h2>
-        <br />
+        <h2 class="w3-text-white w3-center">My Projects</h2><br />
         <div class="projects">
-            <a href="{% url 'explo:sans' %}"
-              ><img
-                class="w3-hover-opacity"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.XYbEaZF3-qRmSY8PpPqbhAHaE8%26pid%3DApi&f=1"
-            /></a>
-            <a href="{% url 'problemset:problemset' %}"
-              ><img
-                class="w3-hover-opacity"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.explicit.bing.net%2Fth%3Fid%3DOIP.jMLSvZ0rhLV7YuZRBrruyQHaD4%26pid%3DApi&f=1"
-            /></a>
-            <a href="{% url 'problemset:problemset' %}"
-              ><img
-                class="w3-hover-opacity"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.biUEsX4dB7ObfFTxvdprMwHaE7%26pid%3DApi&f=1"
-            /></a>
-            <a href="{% url 'quiz:quiz_list' %}"
-              ><img
-                class="w3-hover-opacity"
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ea99aIBs_QQSITPRoMWZvwHaD4%26pid%3DApi&f=1"
-            /></a>
+            <a href="{% url 'explo:sans' %}"><img class="w3-hover-opacity" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse2.mm.bing.net%2Fth%3Fid%3DOIP.XYbEaZF3-qRmSY8PpPqbhAHaE8%26pid%3DApi&f=1"/></a>
+            <a href="{% url 'problemset:problemset' %}"><img class="w3-hover-opacity" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.explicit.bing.net%2Fth%3Fid%3DOIP.jMLSvZ0rhLV7YuZRBrruyQHaD4%26pid%3DApi&f=1"/></a>
+            <a href="{% url 'problemset:problemset' %}"><img class="w3-hover-opacity" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.biUEsX4dB7ObfFTxvdprMwHaE7%26pid%3DApi&f=1"/></a>
+            <a href="{% url 'quiz:quiz_list' %}"><img class="w3-hover-opacity" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.ea99aIBs_QQSITPRoMWZvwHaD4%26pid%3DApi&f=1"/></a>
         </div>
         {% if not user.is_authenticated %}
         <p>To visit <a href="javascript:void()" onclick="showAuth()"> login </a></p>
         {%endif%}
       </div>
-      <footer
-        class="w3-bottom w3-center w3-text-grey w3-xlarge" style="background-color:black"
-      >
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <a href="https://www.linkedin.com/in/sanskar-jain-7285a91b3/"
-          ><i class="fa fa-linkedin w3-hover-opacity"></i
-        ></a>
-        <a href="https://github.com/sans-23"
-          ><i class="fa fa-github w3-hover-opacity"></i
-        ></a>
-          </footer>
+      <footer class="w3-bottom w3-center w3-text-grey w3-xlarge">
+        <a href="https://www.instagram.com/23_sans_/"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+        <a href="https://twitter.com/sans1823"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+        <a href="https://www.linkedin.com/in/sanskar-jain-7285a91b3/"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+        <a href="https://github.com/sans-23"><i class="fa fa-github w3-hover-opacity"></i></a>
+      </footer>
     </div>
     <script>
       function myFunction() {
         var x = document.getElementById("myLinks");
-        if (x.style.display === "block") {
-          x.style.display = "none";
-        } else {
-          x.style.display = "block";
-        }
+        if (x.style.display === "block") x.style.display = "none";
+        else x.style.display = "block";
       }
       function login() {
         document.getElementById("login").style.display = "block";
