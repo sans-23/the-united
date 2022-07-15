@@ -1,12 +1,12 @@
 {% extends "quiz/base.html" %}
 
 {% block content %}
-
-  <form class="w3-container w3-round w3-border w3-text-indigo w3-margin" action="" method="post">
-    <h3 class="w3-indigo w3-round w3-center">Updating</h3>
+<div class="modal-form">
+  <form class="w3-container w3-round-large w3-border w3-text-blue w3-margin" action="" method="post">
+    <h2 class="w3-blue w3-round w3-center">Update : {{quiz}}</h3>
     {% csrf_token %}
     {{ form.as_p }}
-    <input class="w3-button w3-round w3-right w3-section w3-indigo w3-padding" type="submit" value="Update">
+    <input class="w3-button w3-round w3-right w3-section w3-blue w3-padding" type="submit" value="Update">
 
     <style>
       textarea{
@@ -15,5 +15,5 @@
       }
     </style>
   </form>
-
+</div>
 {% endblock %}

@@ -31,39 +31,25 @@
     <script src="https://cdn.plot.ly/plotly-2.12.1.min.js"></script>
   </head>
   <body>
-    <nav id="main" class="w3-bar">
-      <img
-        class="w3-bar-item w3-left"
-        style="width: auto; height: 60px"
+    <nav class="topnav" style="display:flex; justify-content:space-between; background:none; padding-top:8px">
+      <a href="{% url 'home' %}"><img
+        style="width: auto; height: 40px;"
         src="https://cdn.pixabay.com/photo/2016/12/17/15/50/logo-1913689_960_720.png"
         alt="logo"
-      />
-      <div
-        class="w3-bar-item w3-right"
-        style="font-size: 30px; cursor: pointer"
-        onclick="openNav()"
-      >
-        &#9776;
-      </div>
+      /></a>
+      <a href="javascript:void(0);" class="w3-right w3-xlarge" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
     </nav>
-    <div id="mySidenav" class="sidenav">
-      <a href="{% url 'home' %}" class="w3-button w3-block">Home</a>
-      <a href="{% url 'quiz:quiz_list' %}" class="w3-button w3-block">Quiz</a>
-      <a href="{% url 'explo:sans' %}" class="w3-button w3-block"> Explo</a>
-      <a href="{% url 'problemset:problemset' %}" class="w3-button w3-block">
-        Problemset</a
+    <div id="myLinks" style="display:none">
+      <a href="{% url 'quiz:quiz_list' %}" class="w3-button">Quiz</a>
+      <a href="{% url 'explo:sans' %}" class="w3-button"> Explo</a>
+      <a href="{% url 'problemset:problemset' %}" class="w3-button">
+        CF-lite</a
       >
-      <form
-        class="w3-button w3-block"
-        action="{% url 'accounts:logout' %}"
-        method="post"
-      >
-        {% csrf_token %}
-        <button class="w3-button w3-block" type="submit">Logout</button>
-      </form>
     </div>
     <div class="app">
-      <div class="w3-container w3-center w3-padding">
+      <div class="w3-container w3-padding">
         {% block content %} {% endblock %}
       </div>
     </div>
@@ -82,13 +68,12 @@
       ></a>
     </footer>
     <script>
-      function openNav() {
-        if (document.getElementById("mySidenav").style.width == "") {
-          document.getElementById("mySidenav").style.width = "200px";
-          document.getElementById("main").style.marginRight = "200px";
+      function myFunction() {
+        var x = document.getElementById("myLinks");
+        if (x.style.display === "block") {
+          x.style.display = "none";
         } else {
-          document.getElementById("mySidenav").style.width = "";
-          document.getElementById("main").style.marginRight = "0";
+          x.style.display = "block";
         }
       }
     </script>

@@ -9,21 +9,21 @@
           {% if quiz.question_set.count >= 20 %}
           <p style="color:red"><span>MAX QUES LIMIT</span></p>
           {% else %}
-          <button class="w3-button w3-blue w3-bar"><a href="{% url 'quiz:question_create' slug=quiz.slug %}">Add Question</a></button>
+          <a class="w3-button w3-round-large w3-blue w3-bar w3-margin-bottom" href="{% url 'quiz:question_create' slug=quiz.slug %}">Add Question</a>
           {% endif %}
           
           
           {% for question in questions %}
   
-          <div class="w3-container w3-round-large w3-border w3-margin-top w3-blue">
-            <p>{{question.question}}</p>
+          <div class="w3-container w3-round-large w3-border w3-text-grey">
+            <p>Q. {{question.question}}</p>
             <hr>
-            <div>{{question.option1}}</div>
-            <div>{{question.option2}}</div>
-            <div>{{question.option3}}</div>
-            <div>{{question.option4}}</div>
-            <a href="{% url 'quiz:question_update' question.id %}">Edit</a>
-            <a href="{% url 'quiz:question_delete' question.id %}">Delete</a>
+            <div>A. {{question.option1}}</div>
+            <div>B. {{question.option2}}</div>
+            <div>C. {{question.option3}}</div>
+            <div>D. {{question.option4}}</div>
+            <a class="w3-text-green w3-left" href="{% url 'quiz:question_update' question.id %}">Edit</a>
+            <a class="w3-text-orange w3-right" href="{% url 'quiz:question_delete' question.id %}">Delete</a>
           </div>
   
           {% endfor %}
@@ -37,11 +37,12 @@
       </div>
       </div>
 
-      <div class="w3-container w3-padding-48 w3-half">
-
-        <img style="width: 20%;" src="https://cdn.pixabay.com/photo/2022/06/10/11/54/win-7254378__340.png" alt="">
+      <div class="w3-container w3-center w3-padding-48 w3-half">
+        <div class="leaderboard" style="display:flex; align-items:center; justify-content:start">
+          <img class="w3-padding" style="width: 25%;" src="https://cdn.pixabay.com/photo/2022/06/10/11/54/win-7254378__340.png" alt="">
+          <p style="font-size:1.8em">Leaderboard</p>
+        </div>
         <table>
-          <caption class="w3-large">Leaderboard</caption>
           <tr>
             <th>PARTICIPANT</th>
             <th>SCORE</th>
@@ -56,7 +57,7 @@
           {% endfor %}
         </table>
 
-        <img class="w3-margin" style="width: 70%;" src="https://cdn.pixabay.com/photo/2016/06/13/15/07/presentation-1454403__340.png" alt="">
+        <img class="w3-margin" style="width: 60%;" src="https://cdn.pixabay.com/photo/2016/06/13/15/07/presentation-1454403__340.png" alt="">
 
         <table>
           <tr>

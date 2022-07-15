@@ -8,6 +8,9 @@ body{
     align-items: center;
     min-height: 100vh;
 }
+.leaderboard{
+    display: flex;
+}
 .modal-form{
     max-width: 600px;
     margin: auto;
@@ -27,38 +30,23 @@ nav{
     color: aliceblue;
     background-color:none;
 }
+.topnav {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+#myLinks {
+    display: none;
+}
+.topnav a {
+    padding: 4px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    display: block;
+}
 body{
     color: aliceblue;
     background-color:#14171A;
-}
-
-.sidenav {
-    color: aliceblue;
-    background-color:#14171A;
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    right: 0;
-    overflow-x: hidden;
-    transition: 0.5s;
-    padding-top: 70px;
-}
-
-.sidenav a {
-    text-decoration: none;
-    font-size: 25px;
-    display: block;
-    transition: 0.3s;
-}
-
-.sidenav .closebtn {
-    position: absolute;
-    top: 50px;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
 }
 
 .projects{
