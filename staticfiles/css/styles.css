@@ -1,0 +1,111 @@
+body{
+    background-image: url('https://cdn.pixabay.com/photo/2016/08/28/18/28/star-1626550__340.jpg');
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.modal-form{
+    max-width: 600px;
+    margin: auto;
+}
+.projects-section{
+    background-color: none;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.authentication{
+    display: flex;
+    
+}
+nav{
+    color: aliceblue;
+    background-color:none;
+}
+body{
+    color: aliceblue;
+    background-color:#14171A;
+}
+
+.sidenav {
+    color: aliceblue;
+    background-color:#14171A;
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 70px;
+}
+
+.sidenav a {
+    text-decoration: none;
+    font-size: 25px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 50px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.projects{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 80%;
+}
+
+.projects img{
+    width: 100%;
+    object-fit: fill;
+    height: auto;
+}
+
+table {
+border-collapse: collapse;
+width: 100%;
+background-color: #2a2e35;
+}
+
+td, th {
+text-align: left;
+padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #454e56;
+}
+
+td a{
+    text-decoration: none;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 700px) {
+    .authentication{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+    .projects{
+        width: 90%;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.app{
+    max-width: 960px;
+    margin: auto;
+}
