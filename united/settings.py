@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$45&l=@5%@(5t7_i%^@*n%*1mg8)oh=xfl!hh6$(&7f8el0xrn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['cfproblemset.pythonanywhere.com']
+ALLOWED_HOSTS = [ '*' , 'cfproblemset.pythonanywhere.com', '.herokuapp.com']
 
 
 # Application definition
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
 
     'rest_framework',
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -76,7 +78,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'united.wsgi.application'
-
+WHITENOISE_USE_FINDERS = True
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -134,7 +137,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = '/home/cfproblemset/united/media'
+MEDIA_ROOT = '/home/the-united/united/media'
 MEDIA_URL = '/media/'
-STATIC_ROOT = '/home/cfproblemset/united/static'
+STATIC_ROOT = '/home/the-united/united/static'
 STATIC_URL = '/static/'
