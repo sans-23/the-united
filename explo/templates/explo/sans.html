@@ -8,21 +8,19 @@
             <div class="w3-container w3-mobile" >
                 <a href="{% url 'explo:sans' %}" class="w3-left w3-margin"><span class="material-icons w3-xxlarge">arrow_back</span></a>
                 <a href="https://colab.research.google.com/drive/1LBJSN49G34-LQXpQFIh6GJM5VnuPqSpd?usp=sharing" class="w3-right w3-margin"><span class="material-icons w3-xxlarge">code</span></a>
-                <h2 class="w3-center w3-margin w3-text-indigo" style="text-shadow:1px 1px 0 #444"><b>{{data.USCS_NAME}}</b></h2>
-                <h3 class="w3-center w3-text-dark-grey">{{data.USCS_ABBR}}</h3>
+                <h2 class="w3-center w3-margin w3-text-blue" style="text-shadow:1px 1px 0 #444"><b>{{data.USCS_NAME}}</b></h2>
+                <h3 class="w3-center w3-text-grey">{{data.USCS_ABBR}}</h3>
 
             </div>
-
             <hr>
-
             <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
             <hr>
             <div class="w3-container w3-mobile">
                 {% if data.Cu %}
                 <details class="w3-container w3-large">
                     <summary>Show Table</summary>
-                    <table class="w3-table w3-light-grey w3-centered w3-border w3-round-xlarge" >
-                    <tr class="w3-dark-grey w3-round-xlarge">
+                    <table>
+                    <tr>
                       <th><h5>Sieve Size</h5></th>
                       <th><h5>Percentage Finer</h5></th>
                     </tr>
@@ -59,7 +57,7 @@
                 size: 8
               },
               line: {
-                color: 'rgb(63, 81, 181)',
+                color: 'rgb(33, 150, 243)',
                 width: 2
               },
             };
@@ -67,8 +65,8 @@
             var data = [trace];
 
             var layout = {
-              plot_bgcolor :'white',
-              paper_bgcolor: 'white',
+              plot_bgcolor :'black',
+              paper_bgcolor: 'black',
               title:'Particle size distribution curve',
               titlefont: {
                   family: 'Arial, sans-serif',
@@ -232,8 +230,5 @@
           </li>
         </ul>
         </div>
-
-
     {% endif %}
-
 {% endblock %}
